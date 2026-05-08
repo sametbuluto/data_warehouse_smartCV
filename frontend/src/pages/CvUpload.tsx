@@ -82,12 +82,22 @@ export default function UploadPage() {
     disabled: uploading,
   });
 
+  const extractionChecks = candidate
+    ? [
+        { label: "Name", ok: candidate.name && candidate.name !== "Unknown" },
+        { label: "Email", ok: Boolean(candidate.email) },
+        { label: "Phone", ok: Boolean(candidate.phone) },
+        { label: "Education", ok: Boolean(candidate.education && candidate.education !== "Unknown") },
+        { label: "Experience", ok: candidate.experience_years > 0 },
+      ]
+    : [];
+
   return (
     <div className="space-y-6 pb-4">
       <SectionHeading
         eyebrow="Candidate Intake"
-        title="Upload a CV and immediately surface job fit."
-        description="This intake workspace extracts structured candidate data, then checks the new profile against all current job postings for a live classroom demo."
+        title="Upload a CV and check its job fit"
+        description="This page extracts candidate data from a PDF CV and compares the candidate against current job postings."
       />
 
       <div className="grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
@@ -105,11 +115,9 @@ export default function UploadPage() {
                 {uploading ? <Loader2 className="h-9 w-9 animate-spin" /> : <UploadCloud className="h-9 w-9" />}
               </div>
               <h3 className="text-2xl font-semibold tracking-tight text-foreground">
-                {isDragActive ? "Drop the PDF to start parsing" : "Drag and drop a resume PDF"}
+                {isDragActive ? "Drop the PDF to start parsing" : "Drag and drop a CV PDF"}
               </h3>
-              <p className="mt-3 max-w-lg text-sm leading-7 text-muted-foreground">
-                Upload a candidate CV to extract profile details, normalize skills, and optionally match that profile against every live job posting.
-              </p>
+              <p className="mt-3 max-w-lg text-sm leading-7 text-muted-foreground">Upload, parse, store, and match the CV in one flow.</p>
               <div className="mt-6 flex flex-wrap justify-center gap-2">
                 <Badge tone="brand">PDF only</Badge>
                 <Badge>{jobs.length} active jobs ready</Badge>
@@ -126,7 +134,7 @@ export default function UploadPage() {
           <Card>
             <CardHeader>
               <CardTitle>Pipeline progress</CardTitle>
-              <CardDescription>Stable progress feedback for live demos and instructor presentations.</CardDescription>
+              <CardDescription>Simple progress tracking for parsing and matching.</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <Progress value={progress} className="h-3" />
@@ -161,12 +169,12 @@ export default function UploadPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>What happens after upload?</CardTitle>
+              <CardTitle>After upload</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 text-sm leading-7 text-muted-foreground">
-              <p>The parser extracts name, contact details, skills, education, and experience from the PDF.</p>
-              <p>Each uploaded candidate can be compared against all job postings using the weighted academic matching formula.</p>
-              <p>The resulting scores stay visible across Dashboard, Candidates, Matching, and Analytics pages.</p>
+              <p>The parser extracts candidate fields from the PDF.</p>
+              <p>The candidate is matched against current job postings.</p>
+              <p>The results become visible in Dashboard, Candidates, Matching, and Analytics.</p>
             </CardContent>
           </Card>
         </div>
@@ -215,6 +223,16 @@ export default function UploadPage() {
                       {skill}
                     </Badge>
                   ))}
+                </div>
+                <div className="rounded-[24px] border border-border bg-secondary/55 p-4">
+                  <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Extraction quality</p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {extractionChecks.map((item) => (
+                      <Badge key={item.label} tone={item.ok ? "success" : "warning"}>
+                        {item.label}: {item.ok ? "Found" : "Missing"}
+                      </Badge>
+                    ))}
+                  </div>
                 </div>
               </div>
             ) : (

@@ -88,6 +88,11 @@ class DashboardStats(BaseModel):
     total_jobs: int
     total_matches: int
     avg_match_score: float
+    candidates_with_email: int
+    candidates_with_phone: int
+    candidates_with_education: int
+    avg_skills_per_candidate: float
+    jobs_with_matches: int
     top_skills: list[dict]
     best_candidates: list[dict]
     score_distribution: list[dict]

@@ -6,22 +6,12 @@ import {
   BarChart,
   CartesianGrid,
   Cell,
-  Pie,
-  PieChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
-import {
-  ArrowRight,
-  BriefcaseBusiness,
-  BrainCircuit,
-  Target,
-  TrendingUp,
-  Trophy,
-  UsersRound,
-} from "lucide-react";
+import { BriefcaseBusiness, DatabaseZap, Target, TrendingUp, UsersRound } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import { getCandidates, getDashboard, getJobs } from "../api/client";
@@ -36,6 +26,10 @@ import { formatPercent, formatRelativeDate } from "../lib/utils";
 import type { CandidateListItem, DashboardStats, Job } from "../types/api";
 
 const chartColors = ["var(--chart-1)", "var(--chart-2)", "var(--chart-3)", "var(--chart-4)", "var(--chart-5)"];
+
+function getCoveragePart(value: number, total: number) {
+  return total ? formatPercent((value / total) * 100, 0) : "0%";
+}
 
 export default function DashboardPage() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
@@ -53,36 +47,17 @@ export default function DashboardPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  const experienceBuckets = useMemo(() => {
-    const buckets = [
-      { name: "0-2 yrs", value: 0 },
-      { name: "3-5 yrs", value: 0 },
-      { name: "6-8 yrs", value: 0 },
-      { name: "9+ yrs", value: 0 },
-    ];
-
-    candidates.forEach((candidate) => {
-      if (candidate.experience_years <= 2) buckets[0].value += 1;
-      else if (candidate.experience_years <= 5) buckets[1].value += 1;
-      else if (candidate.experience_years <= 8) buckets[2].value += 1;
-      else buckets[3].value += 1;
-    });
-
-    return buckets.filter((bucket) => bucket.value > 0);
-  }, [candidates]);
-
-  const topCandidate = stats?.best_candidates[0];
+  const recentCandidates = useMemo(() => candidates.slice(0, 5), [candidates]);
 
   if (loading) {
     return (
       <div className="space-y-6 pb-4">
-        <Skeleton className="h-[220px] w-full" />
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {Array.from({ length: 4 }).map((_, index) => (
-            <Skeleton key={index} className="h-[172px] w-full" />
+            <Skeleton key={index} className="h-[168px] w-full" />
           ))}
         </div>
-        <div className="grid gap-6 xl:grid-cols-[1.4fr_1fr]">
+        <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
           <Skeleton className="h-[380px] w-full" />
           <Skeleton className="h-[380px] w-full" />
         </div>
@@ -92,134 +67,158 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6 pb-4">
-      <section className="hero-panel ring-grid overflow-hidden rounded-[36px] p-6 sm:p-8">
-        <div className="grid gap-8 xl:grid-cols-[1.3fr_0.9fr]">
-          <div className="space-y-5">
-            <SectionHeading
-              eyebrow="AI Recruiting Control Center"
-              title="A stable, presentation-ready recruitment intelligence dashboard."
-              description="Track candidate volume, active hiring demand, skill coverage, and explainable match quality from a polished enterprise workspace."
-              action={
-                <div className="flex flex-wrap gap-3">
-                  <Button asChild size="lg">
-                    <Link to="/upload">
-                      Upload CV
-                      <ArrowRight className="h-4 w-4" />
-                    </Link>
-                  </Button>
-                  <Button asChild variant="secondary" size="lg">
-                    <Link to="/matching">Open Matching</Link>
-                  </Button>
-                </div>
-              }
-            />
-
-            <div className="grid gap-4 sm:grid-cols-3">
-              <div className="glass-panel rounded-[28px] p-4">
-                <p className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground">Precision Formula</p>
-                <p className="mt-2 text-sm text-foreground">40% skills • 30% experience • 20% education • 10% semantic fit</p>
-              </div>
-              <div className="glass-panel rounded-[28px] p-4">
-                <p className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground">Data Footprint</p>
-                <p className="mt-2 text-sm text-foreground">
-                  {stats?.total_candidates ?? 0} candidates across {stats?.total_jobs ?? 0} live job templates
-                </p>
-              </div>
-              <div className="glass-panel rounded-[28px] p-4">
-                <p className="text-xs font-medium uppercase tracking-[0.22em] text-muted-foreground">Best Candidate</p>
-                <p className="mt-2 text-sm text-foreground">
-                  {topCandidate ? `${topCandidate.name} • ${formatPercent(topCandidate.avg_score, 1)}` : "Awaiting match history"}
-                </p>
-              </div>
-            </div>
+      <SectionHeading
+        eyebrow="Overview"
+        title="SmartCV data and matching overview"
+        description="A simpler home screen focused on dataset size, data quality, and ranking coverage."
+        action={
+          <div className="flex flex-wrap gap-3">
+            <Button asChild>
+              <Link to="/upload">Upload CV</Link>
+            </Button>
+            <Button asChild variant="secondary">
+              <Link to="/jobs">Create Job</Link>
+            </Button>
           </div>
-
-          <Card className="overflow-hidden">
-            <CardHeader>
-              <CardTitle>Live pipeline health</CardTitle>
-              <CardDescription>Recent job templates ready for ranking and AI candidate explanations.</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              {jobs.slice(0, 4).map((job) => (
-                <div key={job.id} className="rounded-[24px] border border-border bg-secondary/60 p-4">
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <p className="text-sm font-semibold text-foreground">{job.title}</p>
-                      <p className="mt-1 text-xs text-muted-foreground">Created {formatRelativeDate(job.created_at)}</p>
-                    </div>
-                    <Badge tone="brand">{job.min_experience}+ yrs</Badge>
-                  </div>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {job.required_skills.slice(0, 4).map((skill) => (
-                      <Badge key={skill}>{skill}</Badge>
-                    ))}
-                  </div>
-                </div>
-              ))}
-              {!jobs.length ? (
-                <EmptyState
-                  icon={BriefcaseBusiness}
-                  title="No jobs created yet"
-                  description="Create job templates to unlock ranking, analytics, and AI fit explanations."
-                  className="min-h-[220px]"
-                />
-              ) : null}
-            </CardContent>
-          </Card>
-        </div>
-      </section>
+        }
+      />
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <KpiCard
-          title="Total Candidates"
+          title="Candidates"
           value={String(stats?.total_candidates ?? 0)}
-          subtitle="Parsed and available in the candidate workspace"
+          subtitle="Rows currently stored in the candidate dataset"
           icon={UsersRound}
         />
         <KpiCard
-          title="Active Jobs"
+          title="Job Postings"
           value={String(stats?.total_jobs ?? 0)}
-          subtitle="Templates feeding the ranking engine"
+          subtitle="Active roles feeding the matching engine"
           icon={BriefcaseBusiness}
           accentClassName="bg-[linear-gradient(160deg,rgba(124,58,237,0.12),transparent)]"
         />
         <KpiCard
-          title="Average Match Score"
-          value={formatPercent(stats?.avg_match_score ?? 0, 1)}
-          subtitle="Mean quality across all computed match results"
-          icon={TrendingUp}
+          title="Match Results"
+          value={String(stats?.total_matches ?? 0)}
+          subtitle="Stored candidate-job scoring records"
+          icon={Target}
           accentClassName="bg-[linear-gradient(160deg,rgba(8,145,178,0.14),transparent)]"
         />
         <KpiCard
-          title="Best Candidate"
-          value={topCandidate ? topCandidate.name : "N/A"}
-          subtitle={topCandidate ? `${formatPercent(topCandidate.avg_score, 1)} average fit across jobs` : "Run matching to surface leaders"}
-          icon={Trophy}
+          title="Average Score"
+          value={formatPercent(stats?.avg_match_score ?? 0, 1)}
+          subtitle="Average weighted score across all match results"
+          icon={TrendingUp}
           accentClassName="bg-[linear-gradient(160deg,rgba(245,158,11,0.16),transparent)]"
         />
       </section>
 
-      <section className="grid gap-6 xl:grid-cols-[1.4fr_1fr]">
+      <section className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
         <Card>
           <CardHeader>
-            <CardTitle>Top skill distribution</CardTitle>
-            <CardDescription>Candidate supply by normalized skill tags extracted from uploaded CVs.</CardDescription>
+            <CardTitle>Data quality summary</CardTitle>
+            <CardDescription>Coverage indicators that make the project feel closer to a datawarehouse analytics demo.</CardDescription>
           </CardHeader>
-          <CardContent className="h-[340px]">
+          <CardContent className="space-y-4">
+            <div className="grid gap-3 sm:grid-cols-2">
+              <div className="rounded-[24px] border border-border bg-secondary/55 p-4">
+                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Email coverage</p>
+                <p className="mt-2 text-2xl font-semibold tracking-tight text-foreground">
+                  {getCoveragePart(stats?.candidates_with_email ?? 0, stats?.total_candidates ?? 0)}
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {stats?.candidates_with_email ?? 0} of {stats?.total_candidates ?? 0} candidates
+                </p>
+              </div>
+              <div className="rounded-[24px] border border-border bg-secondary/55 p-4">
+                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Phone coverage</p>
+                <p className="mt-2 text-2xl font-semibold tracking-tight text-foreground">
+                  {getCoveragePart(stats?.candidates_with_phone ?? 0, stats?.total_candidates ?? 0)}
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {stats?.candidates_with_phone ?? 0} of {stats?.total_candidates ?? 0} candidates
+                </p>
+              </div>
+              <div className="rounded-[24px] border border-border bg-secondary/55 p-4">
+                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Education coverage</p>
+                <p className="mt-2 text-2xl font-semibold tracking-tight text-foreground">
+                  {getCoveragePart(stats?.candidates_with_education ?? 0, stats?.total_candidates ?? 0)}
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {stats?.candidates_with_education ?? 0} candidates classified
+                </p>
+              </div>
+              <div className="rounded-[24px] border border-border bg-secondary/55 p-4">
+                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Average skills</p>
+                <p className="mt-2 text-2xl font-semibold tracking-tight text-foreground">
+                  {(stats?.avg_skills_per_candidate ?? 0).toFixed(1)}
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">Mean extracted skill tags per candidate</p>
+              </div>
+            </div>
+
+            <div className="rounded-[24px] border border-border bg-secondary/55 p-4">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Matching coverage</p>
+                  <p className="mt-2 text-lg font-semibold text-foreground">
+                    {stats?.jobs_with_matches ?? 0} / {stats?.total_jobs ?? 0} jobs have stored results
+                  </p>
+                </div>
+                <Badge tone="brand">
+                  {getCoveragePart(stats?.jobs_with_matches ?? 0, stats?.total_jobs ?? 0)}
+                </Badge>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Latest data entries</CardTitle>
+            <CardDescription>Recently added candidates and roles in the current local dataset.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {recentCandidates.length ? (
+              recentCandidates.map((candidate) => (
+                <div key={candidate.id} className="rounded-[24px] border border-border bg-secondary/55 p-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="text-sm font-semibold text-foreground">{candidate.name}</p>
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        {candidate.skills_count} skills • {candidate.experience_years} years
+                      </p>
+                    </div>
+                    <Badge>{formatRelativeDate(candidate.created_at)}</Badge>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <EmptyState
+                icon={DatabaseZap}
+                title="No candidate data yet"
+                description="Upload a CV or seed the database to populate the dataset."
+                className="min-h-[260px]"
+              />
+            )}
+          </CardContent>
+        </Card>
+      </section>
+
+      <section className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+        <Card>
+          <CardHeader>
+            <CardTitle>Top extracted skills</CardTitle>
+            <CardDescription>The most frequent normalized skills in the candidate dataset.</CardDescription>
+          </CardHeader>
+          <CardContent className="h-[330px]">
             {stats?.top_skills.length ? (
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={stats.top_skills}>
                   <CartesianGrid stroke="rgba(148,163,184,0.12)" vertical={false} />
-                  <XAxis dataKey="name" stroke="var(--muted-foreground)" fontSize={12} tickLine={false} axisLine={false} />
-                  <YAxis stroke="var(--muted-foreground)" fontSize={12} tickLine={false} axisLine={false} />
-                  <Tooltip
-                    cursor={{ fill: "rgba(148,163,184,0.06)" }}
-                    contentStyle={{
-                      background: "var(--popover)",
-                      border: "1px solid var(--border)",
-                      borderRadius: 20,
-                    }}
-                  />
+                  <XAxis dataKey="name" stroke="var(--muted-foreground)" tickLine={false} axisLine={false} fontSize={12} />
+                  <YAxis stroke="var(--muted-foreground)" tickLine={false} axisLine={false} fontSize={12} />
+                  <Tooltip contentStyle={{ background: "var(--popover)", border: "1px solid var(--border)", borderRadius: 20 }} />
                   <Bar dataKey="count" radius={[14, 14, 6, 6]}>
                     {stats.top_skills.map((item, index) => (
                       <Cell key={item.name} fill={chartColors[index % chartColors.length]} />
@@ -229,9 +228,9 @@ export default function DashboardPage() {
               </ResponsiveContainer>
             ) : (
               <EmptyState
-                icon={BrainCircuit}
-                title="Skill analytics will appear here"
-                description="Upload CVs or seed data to populate NLP-extracted skills and distribution charts."
+                icon={DatabaseZap}
+                title="No skill distribution yet"
+                description="Candidate uploads will populate this chart."
               />
             )}
           </CardContent>
@@ -239,106 +238,65 @@ export default function DashboardPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Candidate experience mix</CardTitle>
-            <CardDescription>Current talent pool segmented by years of professional experience.</CardDescription>
+            <CardTitle>Score distribution</CardTitle>
+            <CardDescription>How final match scores are distributed across saved match results.</CardDescription>
           </CardHeader>
-          <CardContent className="h-[340px]">
-            {experienceBuckets.length ? (
+          <CardContent className="h-[330px]">
+            {stats?.score_distribution.some((item) => item.count > 0) ? (
               <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie data={experienceBuckets} dataKey="value" nameKey="name" innerRadius={72} outerRadius={110} paddingAngle={3}>
-                    {experienceBuckets.map((entry, index) => (
-                      <Cell key={entry.name} fill={chartColors[index % chartColors.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip
-                    contentStyle={{
-                      background: "var(--popover)",
-                      border: "1px solid var(--border)",
-                      borderRadius: 20,
-                    }}
-                  />
-                </PieChart>
+                <AreaChart data={stats.score_distribution}>
+                  <defs>
+                    <linearGradient id="dashboardArea" x1="0" x2="0" y1="0" y2="1">
+                      <stop offset="5%" stopColor="var(--chart-2)" stopOpacity={0.44} />
+                      <stop offset="95%" stopColor="var(--chart-2)" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
+                  <CartesianGrid stroke="rgba(148,163,184,0.12)" vertical={false} />
+                  <XAxis dataKey="range" stroke="var(--muted-foreground)" tickLine={false} axisLine={false} />
+                  <YAxis stroke="var(--muted-foreground)" tickLine={false} axisLine={false} />
+                  <Tooltip contentStyle={{ background: "var(--popover)", border: "1px solid var(--border)", borderRadius: 20 }} />
+                  <Area type="monotone" dataKey="count" stroke="var(--chart-2)" strokeWidth={3} fill="url(#dashboardArea)" />
+                </AreaChart>
               </ResponsiveContainer>
             ) : (
               <EmptyState
-                icon={UsersRound}
-                title="No candidate experience data"
-                description="Once resumes are parsed, experience buckets will help show depth across the talent pool."
+                icon={Target}
+                title="No score distribution yet"
+                description="Run job matching to create score records."
               />
             )}
           </CardContent>
         </Card>
       </section>
 
-      <section className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
+      <section>
         <Card>
           <CardHeader>
-            <CardTitle>Score distribution trend</CardTitle>
-            <CardDescription>Weighted match quality bucketed across every saved match result in the database.</CardDescription>
+            <CardTitle>Recent job postings</CardTitle>
+            <CardDescription>Current job templates in the local warehouse-style dataset.</CardDescription>
           </CardHeader>
-          <CardContent className="h-[320px]">
-            {stats?.score_distribution.some((item) => item.count > 0) ? (
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={stats?.score_distribution}>
-                  <defs>
-                    <linearGradient id="scoreTrend" x1="0" x2="0" y1="0" y2="1">
-                      <stop offset="5%" stopColor="var(--chart-1)" stopOpacity={0.45} />
-                      <stop offset="95%" stopColor="var(--chart-1)" stopOpacity={0} />
-                    </linearGradient>
-                  </defs>
-                  <CartesianGrid stroke="rgba(148,163,184,0.12)" vertical={false} />
-                  <XAxis dataKey="range" stroke="var(--muted-foreground)" tickLine={false} axisLine={false} />
-                  <YAxis stroke="var(--muted-foreground)" tickLine={false} axisLine={false} />
-                  <Tooltip
-                    contentStyle={{
-                      background: "var(--popover)",
-                      border: "1px solid var(--border)",
-                      borderRadius: 20,
-                    }}
-                  />
-                  <Area type="monotone" dataKey="count" stroke="var(--chart-1)" strokeWidth={3} fill="url(#scoreTrend)" />
-                </AreaChart>
-              </ResponsiveContainer>
-            ) : (
-              <EmptyState
-                icon={Target}
-                title="Matching history is empty"
-                description="Launch matching from a job posting to generate scores, rankings, and explainable AI output."
-              />
-            )}
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Top candidates</CardTitle>
-            <CardDescription>Highest average fit scores across all jobs in the current demo database.</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            {stats?.best_candidates.length ? (
-              stats.best_candidates.map((candidate, index) => (
-                <div key={candidate.id} className="flex items-center justify-between rounded-[22px] border border-border bg-secondary/60 px-4 py-3">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-[18px] bg-primary/10 font-semibold text-primary">
-                      {index + 1}
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-foreground">{candidate.name}</p>
-                      <p className="text-xs text-muted-foreground">Across stored match results</p>
-                    </div>
-                  </div>
-                  <Badge tone="brand">{formatPercent(candidate.avg_score, 1)}</Badge>
+          <CardContent className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+            {jobs.slice(0, 6).map((job) => (
+              <div key={job.id} className="rounded-[24px] border border-border bg-secondary/55 p-4">
+                <p className="text-sm font-semibold text-foreground">{job.title}</p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {job.min_experience}+ years • {job.education_level}
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {job.required_skills.slice(0, 3).map((skill) => (
+                    <Badge key={skill}>{skill}</Badge>
+                  ))}
                 </div>
-              ))
-            ) : (
+              </div>
+            ))}
+            {!jobs.length ? (
               <EmptyState
-                icon={Trophy}
-                title="No ranked leaders yet"
-                description="Once match results exist, this panel will highlight the strongest candidates."
-                className="min-h-[240px]"
+                icon={BriefcaseBusiness}
+                title="No jobs created yet"
+                description="Add a role to start producing candidate rankings."
+                className="md:col-span-2 xl:col-span-3"
               />
-            )}
+            ) : null}
           </CardContent>
         </Card>
       </section>

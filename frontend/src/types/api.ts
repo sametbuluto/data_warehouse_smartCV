@@ -54,6 +54,11 @@ export interface DashboardStats {
   total_jobs: number;
   total_matches: number;
   avg_match_score: number;
+  candidates_with_email: number;
+  candidates_with_phone: number;
+  candidates_with_education: number;
+  avg_skills_per_candidate: number;
+  jobs_with_matches: number;
   top_skills: { name: string; count: number }[];
   best_candidates: { id: number; name: string; avg_score: number }[];
   score_distribution: { range: string; count: number }[];

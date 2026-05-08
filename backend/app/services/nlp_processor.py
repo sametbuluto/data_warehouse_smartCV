@@ -1,10 +1,10 @@
-"""NLP processing pipeline using spaCy and NLTK for resume analysis."""
+"""NLP processing pipeline using spaCy for resume analysis."""
 
 import re
 import logging
+from datetime import datetime
+
 import spacy
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
 
 logger = logging.getLogger(__name__)
 
@@ -52,6 +52,34 @@ KNOWN_SKILLS = {
     "project management", "communication", "leadership", "problem solving",
 }
 
+SKILL_ALIASES = {
+    "py": "python",
+    "python3": "python",
+    "js": "javascript",
+    "ts": "typescript",
+    "reactjs": "react",
+    "react.js": "react",
+    "nodejs": "node.js",
+    "node js": "node.js",
+    "rest api": "rest",
+    "rest apis": "rest",
+    "restful api": "rest",
+    "restful apis": "rest",
+    "postgres": "postgresql",
+    "mongo": "mongodb",
+    "k8s": "kubernetes",
+    "ml": "machine learning",
+    "nlp engineering": "nlp",
+    "nlp engineer": "nlp",
+    "powerbi": "power bi",
+    "scikit learn": "scikit-learn",
+    "sklearn": "scikit-learn",
+    "tailwind css": "tailwindcss",
+    "github action": "github actions",
+    "ci cd": "ci/cd",
+    "ui ux": "ui/ux",
+}
+
 # Education level hierarchy for scoring
 EDUCATION_LEVELS = {
     "high school": 20,
@@ -64,18 +92,75 @@ EDUCATION_LEVELS = {
 }
 
 
+MONTH_PATTERN = {
+    "01": 1, "1": 1, "jan": 1, "january": 1,
+    "02": 2, "2": 2, "feb": 2, "february": 2,
+    "03": 3, "3": 3, "mar": 3, "march": 3,
+    "04": 4, "4": 4, "apr": 4, "april": 4,
+    "05": 5, "5": 5, "may": 5,
+    "06": 6, "6": 6, "jun": 6, "june": 6,
+    "07": 7, "7": 7, "jul": 7, "july": 7,
+    "08": 8, "8": 8, "aug": 8, "august": 8,
+    "09": 9, "9": 9, "sep": 9, "sept": 9, "september": 9,
+    "10": 10, "oct": 10, "october": 10,
+    "11": 11, "nov": 11, "november": 11,
+    "12": 12, "dec": 12, "december": 12,
+}
+
+
+def normalize_extraction_text(text: str) -> str:
+    """Normalize text fragments that commonly break extraction heuristics."""
+    return (
+        text.replace("\u2013", "-")
+        .replace("\u2014", "-")
+        .replace("\u2019", "'")
+        .replace("\u02bc", "'")
+    )
+
+
 def extract_email(text: str) -> str | None:
     """Extract email address from text using regex."""
+    text = normalize_extraction_text(text)
+    text = re.sub(r"\s*@\s*", "@", text)
+    text = re.sub(r"\s*\.\s*", ".", text)
     pattern = r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
     match = re.search(pattern, text)
-    return match.group(0) if match else None
+    return match.group(0).lower() if match else None
 
 
 def extract_phone(text: str) -> str | None:
     """Extract phone number from text using regex."""
-    pattern = r"[\+]?[(]?[0-9]{1,4}[)]?[-\s\./0-9]{7,15}"
+    text = normalize_extraction_text(text)
+    pattern = r"(?:\+?\d{1,3}[\s\-./]?)?(?:\(?\d{3,4}\)?[\s\-./]?)?\d{3}[\s\-./]?\d{2,4}[\s\-./]?\d{2,4}"
     match = re.search(pattern, text)
-    return match.group(0).strip() if match else None
+    if not match:
+        return None
+
+    cleaned = re.sub(r"\s+", " ", match.group(0)).strip(" -./")
+    digits = re.sub(r"\D", "", cleaned)
+    return cleaned if len(digits) >= 10 else None
+
+
+def _is_probable_name_line(line: str) -> bool:
+    if not line or len(line) > 60:
+        return False
+    if "@" in line or "http" in line.lower():
+        return False
+    if re.search(r"\d{2,}", line):
+        return False
+    if any(token in line.lower() for token in ["summary", "profile", "education", "skills", "experience", "linkedin"]):
+        return False
+
+    words = line.replace("|", " ").split()
+    if not 2 <= len(words) <= 4:
+        return False
+
+    valid_words = 0
+    for word in words:
+        if re.fullmatch(r"[A-Za-zÀ-ÖØ-öø-ÿÇĞİÖŞÜçğıöşü'’-]+", word):
+            valid_words += 1
+
+    return valid_words == len(words)
 
 
 def extract_name(text: str) -> str:
@@ -83,8 +168,14 @@ def extract_name(text: str) -> str:
 
     Falls back to first non-empty line if NER fails.
     """
+    text = normalize_extraction_text(text)
+    lines = [line.strip() for line in text.split("\n") if line.strip()]
+
+    for line in lines[:8]:
+        if _is_probable_name_line(line):
+            return re.sub(r"\s+", " ", line).strip()
+
     if nlp is None:
-        lines = [l.strip() for l in text.split("\n") if l.strip()]
         return lines[0][:100] if lines else "Unknown"
 
     # Use first 500 chars for name detection (names are usually at the top)
@@ -94,7 +185,6 @@ def extract_name(text: str) -> str:
             return ent.text.strip()
 
     # Fallback: first non-empty line
-    lines = [l.strip() for l in text.split("\n") if l.strip()]
     return lines[0][:100] if lines else "Unknown"
 
 
@@ -103,19 +193,75 @@ def extract_skills(text: str) -> list[str]:
 
     Uses lowercased text matching with word boundary awareness.
     """
-    text_lower = text.lower()
-    found_skills = []
+    text_lower = normalize_extraction_text(text).lower()
+    found_skills = set()
 
-    for skill in KNOWN_SKILLS:
-        # Use word boundary matching for short skills to avoid false positives
-        if len(skill) <= 2:
-            pattern = r"\b" + re.escape(skill) + r"\b"
-            if re.search(pattern, text_lower):
-                found_skills.append(skill)
-        elif skill in text_lower:
-            found_skills.append(skill)
+    searchable_skills = {skill: skill for skill in KNOWN_SKILLS}
+    searchable_skills.update(SKILL_ALIASES)
 
-    return sorted(set(found_skills))
+    for term, canonical in searchable_skills.items():
+        pattern = r"(?<!\w)" + re.escape(term) + r"(?!\w)"
+        if re.search(pattern, text_lower):
+            found_skills.add(canonical)
+
+    return sorted(found_skills)
+
+
+def _parse_month_year(token: str) -> tuple[int, int] | None:
+    token = token.strip().lower().replace(".", "").replace(" ", "/")
+
+    if token in {"present", "current", "now"}:
+        today = datetime.utcnow()
+        return today.year, today.month
+
+    match = re.fullmatch(r"([a-z]{3,9}|\d{1,2})/(\d{4})", token)
+    if not match:
+        return None
+
+    month_token, year_token = match.groups()
+    month = MONTH_PATTERN.get(month_token)
+    if not month:
+        return None
+
+    return int(year_token), int(month)
+
+
+def extract_date_range_experience(text: str) -> float:
+    """Estimate total experience from date ranges like 10/2025 - 03/2026."""
+    text = normalize_extraction_text(text)
+    pattern = re.compile(
+        r"((?:\d{1,2}|[A-Za-z]{3,9})/\d{4})\s*-\s*((?:\d{1,2}|[A-Za-z]{3,9})/\d{4}|present|current|now)",
+        re.IGNORECASE,
+    )
+    excluded_line_keywords = {
+        "education",
+        "university",
+        "school",
+        "bachelor",
+        "master",
+        "phd",
+        "degree",
+    }
+
+    total_months = 0
+    for line in text.splitlines():
+        line_lower = line.lower()
+        if any(keyword in line_lower for keyword in excluded_line_keywords):
+            continue
+
+        for start_token, end_token in pattern.findall(line):
+            start = _parse_month_year(start_token)
+            end = _parse_month_year(end_token)
+            if not start or not end:
+                continue
+
+            start_year, start_month = start
+            end_year, end_month = end
+            months = (end_year - start_year) * 12 + (end_month - start_month) + 1
+            if 0 < months <= 600:
+                total_months += months
+
+    return round(total_months / 12, 1) if total_months else 0.0
 
 
 def extract_experience_years(text: str) -> float:
@@ -123,9 +269,10 @@ def extract_experience_years(text: str) -> float:
 
     Looks for patterns like '5 years', '3+ years of experience', etc.
     """
+    text = normalize_extraction_text(text)
     patterns = [
-        r"(\d+)\+?\s*(?:years?|yrs?)\s*(?:of)?\s*(?:experience|exp)?",
-        r"experience\s*:?\s*(\d+)\s*(?:years?|yrs?)",
+        r"(\d+(?:\.\d+)?)\+?\s*(?:years?|yrs?)\s*(?:of)?\s*(?:professional\s+)?(?:experience|exp)?",
+        r"experience\s*:?\s*(\d+(?:\.\d+)?)\s*(?:years?|yrs?)",
     ]
 
     years = []
@@ -133,12 +280,16 @@ def extract_experience_years(text: str) -> float:
         matches = re.findall(pattern, text.lower())
         years.extend([float(y) for y in matches])
 
-    return max(years) if years else 0.0
+    derived_from_dates = extract_date_range_experience(text)
+    if derived_from_dates:
+        years.append(derived_from_dates)
+
+    return round(max(years), 1) if years else 0.0
 
 
 def extract_education(text: str) -> str:
     """Extract highest education level from text."""
-    text_lower = text.lower()
+    text_lower = normalize_extraction_text(text).lower()
 
     # Check from highest to lowest
     for level in ["phd", "doctorate", "master", "mba", "bachelor", "associate", "high school"]:
@@ -167,10 +318,10 @@ def extract_education(text: str) -> str:
 def preprocess_text(text: str) -> str:
     """Clean and preprocess text for NLP analysis.
 
-    Pipeline: lowercase → remove special chars → tokenize → remove stopwords → lemmatize.
+    Pipeline: lowercase → remove special chars → lemmatize.
     """
     # Lowercase
-    text = text.lower()
+    text = normalize_extraction_text(text).lower()
 
     # Remove URLs and emails
     text = re.sub(r"http\S+|www\.\S+", "", text)

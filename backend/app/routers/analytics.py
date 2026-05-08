@@ -19,6 +19,16 @@ def get_dashboard(db: Session = Depends(get_db)):
     total_candidates = db.query(Candidate).count()
     total_jobs = db.query(JobPosting).count()
     total_matches = db.query(MatchResult).count()
+    candidates_with_email = db.query(Candidate).filter(Candidate.email.isnot(None), Candidate.email != "").count()
+    candidates_with_phone = db.query(Candidate).filter(Candidate.phone.isnot(None), Candidate.phone != "").count()
+    candidates_with_education = db.query(Candidate).filter(
+        Candidate.education.isnot(None),
+        Candidate.education != "",
+        Candidate.education != "Unknown",
+    ).count()
+    total_skills = db.query(Skill).count()
+    avg_skills_per_candidate = round(total_skills / total_candidates, 2) if total_candidates else 0.0
+    jobs_with_matches = db.query(func.count(func.distinct(MatchResult.job_id))).scalar() or 0
 
     # Average match score
     avg_score_result = db.query(func.avg(MatchResult.final_score)).scalar()
@@ -65,6 +75,11 @@ def get_dashboard(db: Session = Depends(get_db)):
         total_jobs=total_jobs,
         total_matches=total_matches,
         avg_match_score=avg_match_score,
+        candidates_with_email=candidates_with_email,
+        candidates_with_phone=candidates_with_phone,
+        candidates_with_education=candidates_with_education,
+        avg_skills_per_candidate=avg_skills_per_candidate,
+        jobs_with_matches=jobs_with_matches,
         top_skills=top_skills,
         best_candidates=best_candidates,
         score_distribution=score_distribution,

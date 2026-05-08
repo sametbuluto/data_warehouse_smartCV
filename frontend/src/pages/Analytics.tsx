@@ -13,13 +13,15 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { ActivitySquare, BarChart3, ChartPie, DatabaseZap } from "lucide-react";
+import { ActivitySquare, BarChart3, ChartPie, DatabaseZap, UsersRound } from "lucide-react";
 
 import { getCandidates, getDashboard, getJobs } from "../api/client";
 import { Badge } from "../components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
 import { EmptyState } from "../components/ui/empty-state";
 import { SectionHeading } from "../components/ui/section-heading";
+import { Skeleton } from "../components/ui/skeleton";
+import { formatPercent } from "../lib/utils";
 import type { CandidateListItem, DashboardStats, Job } from "../types/api";
 
 const colors = ["var(--chart-1)", "var(--chart-2)", "var(--chart-3)", "var(--chart-4)", "var(--chart-5)"];
@@ -28,13 +30,18 @@ export default function AnalyticsPage() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [candidates, setCandidates] = useState<CandidateListItem[]>([]);
   const [jobs, setJobs] = useState<Job[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    Promise.all([getDashboard(), getCandidates(), getJobs()]).then(([dashboardData, candidateData, jobData]) => {
-      setStats(dashboardData);
-      setCandidates(candidateData);
-      setJobs(jobData);
-    });
+    Promise.all([getDashboard(), getCandidates(), getJobs()])
+      .then(([dashboardData, candidateData, jobData]) => {
+        setStats(dashboardData);
+        setCandidates(candidateData);
+        setJobs(jobData);
+      })
+      .catch(() => setError("Analytics verisi alınamadı. Backend bağlantısını ve mevcut veriyi kontrol et."))
+      .finally(() => setLoading(false));
   }, []);
 
   const educationMix = useMemo(() => {
@@ -64,12 +71,65 @@ export default function AnalyticsPage() {
     return buckets;
   }, [candidates]);
 
+  const dataQuality = useMemo(() => {
+    const totalCandidates = stats?.total_candidates ?? 0;
+    const totalJobs = stats?.total_jobs ?? 0;
+
+    return [
+      {
+        label: "Email completeness",
+        value: formatPercent(totalCandidates ? ((stats?.candidates_with_email ?? 0) / totalCandidates) * 100 : 0, 0),
+        helper: `${stats?.candidates_with_email ?? 0} / ${totalCandidates}`,
+      },
+      {
+        label: "Phone completeness",
+        value: formatPercent(totalCandidates ? ((stats?.candidates_with_phone ?? 0) / totalCandidates) * 100 : 0, 0),
+        helper: `${stats?.candidates_with_phone ?? 0} / ${totalCandidates}`,
+      },
+      {
+        label: "Education completeness",
+        value: formatPercent(totalCandidates ? ((stats?.candidates_with_education ?? 0) / totalCandidates) * 100 : 0, 0),
+        helper: `${stats?.candidates_with_education ?? 0} / ${totalCandidates}`,
+      },
+      {
+        label: "Job match coverage",
+        value: formatPercent(totalJobs ? ((stats?.jobs_with_matches ?? 0) / totalJobs) * 100 : 0, 0),
+        helper: `${stats?.jobs_with_matches ?? 0} / ${totalJobs}`,
+      },
+    ];
+  }, [stats]);
+
+  if (loading) {
+    return (
+      <div className="space-y-6 pb-4">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {Array.from({ length: 4 }).map((_, index) => (
+            <Skeleton key={index} className="h-[150px] w-full" />
+          ))}
+        </div>
+        <div className="grid gap-6 xl:grid-cols-2">
+          <Skeleton className="h-[340px] w-full" />
+          <Skeleton className="h-[340px] w-full" />
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="space-y-6 pb-4">
+        <SectionHeading eyebrow="Analytics" title="Project analytics" description="Warehouse-style metrics for dataset quality and matching coverage." />
+        <div className="rounded-[28px] border border-danger/20 bg-danger/10 p-5 text-sm text-danger">{error}</div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6 pb-4">
       <SectionHeading
-        eyebrow="Presentation Analytics"
-        title="Show the intelligence behind the recruitment demo, not just the interface."
-        description="These charts highlight candidate supply, match quality, education requirements, and the normalized skill landscape used by the matching engine."
+        eyebrow="Analytics"
+        title="Data quality and matching analytics"
+        description="A simpler analytics page focused on dataset completeness, extraction quality, and score coverage."
       />
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -93,10 +153,55 @@ export default function AnalyticsPage() {
         ))}
       </div>
 
+      <div className="grid gap-6 xl:grid-cols-[1fr_1fr]">
+        <Card>
+          <CardHeader>
+            <CardTitle>Data completeness</CardTitle>
+            <CardDescription>How complete the current candidate and matching dataset is.</CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-3 sm:grid-cols-2">
+            {dataQuality.map((item) => (
+              <div key={item.label} className="rounded-[24px] border border-border bg-secondary/55 p-4">
+                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{item.label}</p>
+                <p className="mt-2 text-2xl font-semibold tracking-tight text-foreground">{item.value}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{item.helper}</p>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Best candidates overview</CardTitle>
+            <CardDescription>Top average candidates across all stored match results.</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {stats?.best_candidates.length ? (
+              stats.best_candidates.map((candidate) => (
+                <div key={candidate.id} className="flex items-center justify-between rounded-[24px] border border-border bg-secondary/55 p-4">
+                  <div>
+                    <p className="text-sm font-semibold text-foreground">{candidate.name}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">Average score across matched jobs</p>
+                  </div>
+                  <Badge tone="brand">{candidate.avg_score.toFixed(1)}%</Badge>
+                </div>
+              ))
+            ) : (
+              <EmptyState
+                icon={UsersRound}
+                title="Leaderboard unavailable"
+                description="Candidate rankings will appear after the first matching run."
+                className="min-h-[240px]"
+              />
+            )}
+          </CardContent>
+        </Card>
+      </div>
+
       <div className="grid gap-6 xl:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>Top skills</CardTitle>
+            <CardTitle>Top extracted skills</CardTitle>
             <CardDescription>Normalized skill frequency across all parsed resumes.</CardDescription>
           </CardHeader>
           <CardContent className="h-[340px]">
@@ -126,8 +231,8 @@ export default function AnalyticsPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Match score trend</CardTitle>
-            <CardDescription>Distribution of final weighted scores across every stored ranking result.</CardDescription>
+            <CardTitle>Match score distribution</CardTitle>
+            <CardDescription>Distribution of final weighted scores across saved ranking results.</CardDescription>
           </CardHeader>
           <CardContent className="h-[340px]">
             {stats?.score_distribution.some((item) => item.count > 0) ? (
@@ -150,7 +255,7 @@ export default function AnalyticsPage() {
               <EmptyState
                 icon={ActivitySquare}
                 title="No scoring history yet"
-                description="Run matching to populate distribution trends for your presentation."
+                description="Run matching to populate score distribution analytics."
               />
             )}
           </CardContent>
@@ -179,7 +284,7 @@ export default function AnalyticsPage() {
               <EmptyState
                 icon={ChartPie}
                 title="No candidate experience data"
-                description="Upload candidate CVs to view how the dataset is distributed across experience ranges."
+                description="Upload candidate CVs to view experience band distribution."
               />
             )}
           </CardContent>
@@ -188,7 +293,7 @@ export default function AnalyticsPage() {
         <Card>
           <CardHeader>
             <CardTitle>Job education requirements</CardTitle>
-            <CardDescription>How academic expectations are distributed across active job templates.</CardDescription>
+            <CardDescription>How education requirements are distributed across job templates.</CardDescription>
           </CardHeader>
           <CardContent className="h-[340px]">
             {educationMix.length ? (
@@ -205,38 +310,12 @@ export default function AnalyticsPage() {
               <EmptyState
                 icon={DatabaseZap}
                 title="No job templates available"
-                description="Create job postings to visualize education requirements and role structure."
+                description="Create job postings to visualize requirement distribution."
               />
             )}
           </CardContent>
         </Card>
       </div>
-
-      <Card>
-        <CardHeader>
-          <CardTitle>Best candidates overview</CardTitle>
-          <CardDescription>Quick leaderboard for the strongest average candidates in the current dataset.</CardDescription>
-        </CardHeader>
-        <CardContent className="flex flex-wrap gap-3">
-          {stats?.best_candidates.length ? (
-            stats.best_candidates.map((candidate) => (
-              <div key={candidate.id} className="rounded-[24px] border border-border bg-secondary/55 px-4 py-3">
-                <p className="text-sm font-semibold text-foreground">{candidate.name}</p>
-                <div className="mt-2">
-                  <Badge tone="brand">{candidate.avg_score.toFixed(1)}%</Badge>
-                </div>
-              </div>
-            ))
-          ) : (
-            <EmptyState
-              icon={UsersRound}
-              title="Leaderboard unavailable"
-              description="Candidate rankings will appear after the first matching run."
-              className="w-full"
-            />
-          )}
-        </CardContent>
-      </Card>
     </div>
   );
 }
