@@ -11,6 +11,10 @@ dist/
 
 # Database
 *.db
+*.db-journal
+
+# Runtime uploads
+backend/uploads/
 
 # OS
 .DS_Store
