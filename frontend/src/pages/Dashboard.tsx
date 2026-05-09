@@ -51,28 +51,27 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="space-y-6 pb-4">
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <div className="space-y-5 pb-4">
+        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
           {Array.from({ length: 4 }).map((_, index) => (
-            <Skeleton key={index} className="h-[168px] w-full" />
+            <Skeleton key={index} className="h-[148px] w-full" />
           ))}
         </div>
-        <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
-          <Skeleton className="h-[380px] w-full" />
-          <Skeleton className="h-[380px] w-full" />
+        <div className="grid gap-5 xl:grid-cols-[1.1fr_0.9fr]">
+          <Skeleton className="h-[340px] w-full" />
+          <Skeleton className="h-[340px] w-full" />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6 pb-4">
+    <div className="space-y-5 pb-4">
       <SectionHeading
         eyebrow="Overview"
         title="SmartCV data and matching overview"
-        description="A simpler home screen focused on dataset size, data quality, and ranking coverage."
         action={
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-2">
             <Button asChild>
               <Link to="/upload">Upload CV</Link>
             </Button>
@@ -83,41 +82,36 @@ export default function DashboardPage() {
         }
       />
 
-      <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <section className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
         <KpiCard
           title="Candidates"
           value={String(stats?.total_candidates ?? 0)}
-          subtitle="Rows currently stored in the candidate dataset"
           icon={UsersRound}
         />
         <KpiCard
           title="Job Postings"
           value={String(stats?.total_jobs ?? 0)}
-          subtitle="Active roles feeding the matching engine"
           icon={BriefcaseBusiness}
           accentClassName="bg-[linear-gradient(160deg,rgba(124,58,237,0.12),transparent)]"
         />
         <KpiCard
           title="Match Results"
           value={String(stats?.total_matches ?? 0)}
-          subtitle="Stored candidate-job scoring records"
           icon={Target}
           accentClassName="bg-[linear-gradient(160deg,rgba(8,145,178,0.14),transparent)]"
         />
         <KpiCard
           title="Average Score"
           value={formatPercent(stats?.avg_match_score ?? 0, 1)}
-          subtitle="Average weighted score across all match results"
           icon={TrendingUp}
           accentClassName="bg-[linear-gradient(160deg,rgba(245,158,11,0.16),transparent)]"
         />
       </section>
 
-      <section className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
+      <section className="grid gap-5 xl:grid-cols-[1.15fr_0.85fr]">
         <Card>
           <CardHeader>
-            <CardTitle>Data quality summary</CardTitle>
-            <CardDescription>Coverage indicators that make the project feel closer to a datawarehouse analytics demo.</CardDescription>
+            <CardTitle>Data quality</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="grid gap-3 sm:grid-cols-2">
@@ -126,17 +120,11 @@ export default function DashboardPage() {
                 <p className="mt-2 text-2xl font-semibold tracking-tight text-foreground">
                   {getCoveragePart(stats?.candidates_with_email ?? 0, stats?.total_candidates ?? 0)}
                 </p>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  {stats?.candidates_with_email ?? 0} of {stats?.total_candidates ?? 0} candidates
-                </p>
               </div>
               <div className="rounded-[24px] border border-border bg-secondary/55 p-4">
                 <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Phone coverage</p>
                 <p className="mt-2 text-2xl font-semibold tracking-tight text-foreground">
                   {getCoveragePart(stats?.candidates_with_phone ?? 0, stats?.total_candidates ?? 0)}
-                </p>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  {stats?.candidates_with_phone ?? 0} of {stats?.total_candidates ?? 0} candidates
                 </p>
               </div>
               <div className="rounded-[24px] border border-border bg-secondary/55 p-4">
@@ -144,29 +132,20 @@ export default function DashboardPage() {
                 <p className="mt-2 text-2xl font-semibold tracking-tight text-foreground">
                   {getCoveragePart(stats?.candidates_with_education ?? 0, stats?.total_candidates ?? 0)}
                 </p>
-                <p className="mt-1 text-sm text-muted-foreground">
-                  {stats?.candidates_with_education ?? 0} candidates classified
-                </p>
               </div>
               <div className="rounded-[24px] border border-border bg-secondary/55 p-4">
-                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Average skills</p>
+                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Avg. skills / candidate</p>
                 <p className="mt-2 text-2xl font-semibold tracking-tight text-foreground">
                   {(stats?.avg_skills_per_candidate ?? 0).toFixed(1)}
                 </p>
-                <p className="mt-1 text-sm text-muted-foreground">Mean extracted skill tags per candidate</p>
               </div>
             </div>
 
             <div className="rounded-[24px] border border-border bg-secondary/55 p-4">
               <div className="flex items-center justify-between gap-3">
-                <div>
-                  <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Matching coverage</p>
-                  <p className="mt-2 text-lg font-semibold text-foreground">
-                    {stats?.jobs_with_matches ?? 0} / {stats?.total_jobs ?? 0} jobs have stored results
-                  </p>
-                </div>
+                <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Matching coverage</p>
                 <Badge tone="brand">
-                  {getCoveragePart(stats?.jobs_with_matches ?? 0, stats?.total_jobs ?? 0)}
+                  {stats?.jobs_with_matches ?? 0} / {stats?.total_jobs ?? 0} jobs
                 </Badge>
               </div>
             </div>
@@ -175,8 +154,7 @@ export default function DashboardPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Latest data entries</CardTitle>
-            <CardDescription>Recently added candidates and roles in the current local dataset.</CardDescription>
+            <CardTitle>Latest candidates</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             {recentCandidates.length ? (
@@ -205,11 +183,10 @@ export default function DashboardPage() {
         </Card>
       </section>
 
-      <section className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+      <section className="grid gap-5 xl:grid-cols-[1.1fr_0.9fr]">
         <Card>
           <CardHeader>
-            <CardTitle>Top extracted skills</CardTitle>
-            <CardDescription>The most frequent normalized skills in the candidate dataset.</CardDescription>
+            <CardTitle>Top skills</CardTitle>
           </CardHeader>
           <CardContent className="h-[330px]">
             {stats?.top_skills.length ? (
@@ -239,7 +216,6 @@ export default function DashboardPage() {
         <Card>
           <CardHeader>
             <CardTitle>Score distribution</CardTitle>
-            <CardDescription>How final match scores are distributed across saved match results.</CardDescription>
           </CardHeader>
           <CardContent className="h-[330px]">
             {stats?.score_distribution.some((item) => item.count > 0) ? (
@@ -273,7 +249,6 @@ export default function DashboardPage() {
         <Card>
           <CardHeader>
             <CardTitle>Recent job postings</CardTitle>
-            <CardDescription>Current job templates in the local warehouse-style dataset.</CardDescription>
           </CardHeader>
           <CardContent className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
             {jobs.slice(0, 6).map((job) => (

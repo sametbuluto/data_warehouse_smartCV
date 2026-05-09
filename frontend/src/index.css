@@ -157,11 +157,11 @@ select {
 }
 
 .app-shell-grid {
-  grid-template-columns: 280px minmax(0, 1fr);
+  grid-template-columns: 240px minmax(0, 1fr);
 }
 
 .app-shell-grid[data-collapsed="true"] {
-  grid-template-columns: 88px minmax(0, 1fr);
+  grid-template-columns: 72px minmax(0, 1fr);
 }
 
 .glass-panel {

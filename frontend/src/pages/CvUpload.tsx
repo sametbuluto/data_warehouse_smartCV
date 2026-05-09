@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
 import { AnimatePresence, motion } from "framer-motion";
 import { BrainCircuit, CheckCircle2, FileText, Loader2, UploadCloud } from "lucide-react";
@@ -11,7 +12,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../co
 import { EmptyState } from "../components/ui/empty-state";
 import { Progress } from "../components/ui/progress";
 import { SectionHeading } from "../components/ui/section-heading";
+import { scoreBadgeTone } from "../lib/utils";
 import type { Candidate, Job, MatchResult } from "../types/api";
+
+const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
 
 const uploadSteps = [
   "Saving PDF securely",
@@ -21,6 +25,7 @@ const uploadSteps = [
 ];
 
 export default function UploadPage() {
+  const navigate = useNavigate();
   const [jobs, setJobs] = useState<Job[]>([]);
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -42,25 +47,42 @@ export default function UploadPage() {
       setError(null);
       setCandidate(null);
       setMatches([]);
-      setProgress(12);
-      setActiveStep(0);
 
       try {
-        const uploadedCandidate = await uploadCV(file);
-        setCandidate(uploadedCandidate);
-        setProgress(48);
+        // Step 0: Saving PDF — start upload and show this step for at least 700ms
+        setProgress(10);
+        setActiveStep(0);
+        const uploadPromise = uploadCV(file);
+        await sleep(700);
+
+        // Step 1: Extracting text — show while waiting for upload
+        setProgress(28);
+        setActiveStep(1);
+        await sleep(650);
+
+        // Step 2: Parsing — show briefly, then await upload completion
+        setProgress(50);
         setActiveStep(2);
+        const uploadedCandidate = await uploadPromise;
+        setCandidate(uploadedCandidate);
+        await sleep(600);
 
         if (jobs.length) {
+          // Step 3: Matching against job openings
           setProgress(72);
           setActiveStep(3);
-          await runCandidateMatching(uploadedCandidate.id);
-          const candidateMatches = await getCandidateMatches(uploadedCandidate.id);
+          const [candidateMatches] = await Promise.all([
+            runCandidateMatching(uploadedCandidate.id).then(() =>
+              getCandidateMatches(uploadedCandidate.id),
+            ),
+            sleep(600),
+          ]);
           setMatches(candidateMatches);
-          setProgress(100);
-        } else {
-          setProgress(100);
         }
+        setProgress(100);
+        // Redirect to matching page after a short success pause
+        await sleep(1500);
+        navigate(`/matching?candidate=${uploadedCandidate.id}`);
       } catch (requestError) {
         const fallbackMessage = "Upload failed. Please check the PDF and try again.";
         if (requestError instanceof Error) {
@@ -201,15 +223,26 @@ export default function UploadPage() {
           </CardHeader>
           <CardContent>
             {candidate ? (
-              <div className="space-y-5">
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="space-y-4"
+              >
+                {/* Candidate hero */}
+                <div className="hero-panel rounded-[28px] p-4">
+                  <p className="text-xs uppercase tracking-[0.22em] text-primary/80">Candidate identified</p>
+                  <h3 className="mt-1 text-xl font-semibold tracking-tight text-foreground">{candidate.name}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    {candidate.education || "Education unknown"} • {candidate.experience_years} yrs experience
+                  </p>
+                </div>
+
+                {/* Info grid */}
                 <div className="grid gap-3 sm:grid-cols-2">
                   {[
-                    { label: "Candidate", value: candidate.name },
                     { label: "Email", value: candidate.email || "Not detected" },
                     { label: "Phone", value: candidate.phone || "Not detected" },
-                    { label: "Education", value: candidate.education || "Unknown" },
-                    { label: "Experience", value: `${candidate.experience_years} years` },
-                    { label: "Skills", value: `${candidate.skills.length} extracted tags` },
                   ].map((item) => (
                     <div key={item.label} className="rounded-[24px] border border-border bg-secondary/55 p-4">
                       <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">{item.label}</p>
@@ -217,13 +250,28 @@ export default function UploadPage() {
                     </div>
                   ))}
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {candidate.skills.map((skill) => (
-                    <Badge key={skill} tone="brand">
-                      {skill}
-                    </Badge>
-                  ))}
+
+                {/* Skills with stagger */}
+                <div className="rounded-[24px] border border-border bg-secondary/55 p-4">
+                  <div className="mb-3 flex items-center justify-between">
+                    <p className="text-sm font-semibold text-foreground">Extracted skills</p>
+                    <Badge tone="brand">{candidate.skills.length} tags</Badge>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {candidate.skills.map((skill, i) => (
+                      <motion.span
+                        key={skill}
+                        initial={{ opacity: 0, scale: 0.75 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: i * 0.035, duration: 0.18 }}
+                      >
+                        <Badge tone="brand">{skill}</Badge>
+                      </motion.span>
+                    ))}
+                  </div>
                 </div>
+
+                {/* Extraction quality */}
                 <div className="rounded-[24px] border border-border bg-secondary/55 p-4">
                   <p className="text-xs uppercase tracking-[0.22em] text-muted-foreground">Extraction quality</p>
                   <div className="mt-3 flex flex-wrap gap-2">
@@ -234,7 +282,7 @@ export default function UploadPage() {
                     ))}
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ) : (
               <EmptyState
                 icon={FileText}
@@ -253,8 +301,14 @@ export default function UploadPage() {
           <CardContent>
             {matches.length ? (
               <div className="space-y-4">
-                {matches.slice(0, 5).map((match) => (
-                  <div key={match.id} className="flex items-center gap-4 rounded-[24px] border border-border bg-secondary/55 p-4">
+                {matches.slice(0, 5).map((match, i) => (
+                  <motion.div
+                    key={match.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.08, duration: 0.25 }}
+                    className="flex items-center gap-4 rounded-[24px] border border-border bg-secondary/55 p-4"
+                  >
                     <ScoreRing score={match.final_score} size={74} />
                     <div className="min-w-0 flex-1">
                       <div className="flex items-start justify-between gap-3">
@@ -265,7 +319,7 @@ export default function UploadPage() {
                             {match.education_score.toFixed(1)}
                           </p>
                         </div>
-                        <Badge tone="brand">{Math.round(match.final_score)}%</Badge>
+                        <Badge tone={scoreBadgeTone(match.final_score)}>{Math.round(match.final_score)}%</Badge>
                       </div>
                       <div className="mt-3 flex flex-wrap gap-2">
                         {match.matched_skills.slice(0, 4).map((skill) => (
@@ -280,7 +334,7 @@ export default function UploadPage() {
                         ))}
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             ) : (

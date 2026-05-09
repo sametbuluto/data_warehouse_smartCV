@@ -37,7 +37,6 @@ export function AppShell({ routes, children }: AppShellProps) {
       <div className="min-w-0">
         <Topbar
           title={currentRoute.title}
-          description={currentRoute.description}
           onOpenMobileNav={() => setMobileOpen(true)}
         />
         <main className="mx-auto max-w-[1600px] px-4 pb-8 sm:px-6 lg:px-8">{children}</main>

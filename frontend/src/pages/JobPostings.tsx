@@ -117,7 +117,7 @@ export default function JobPostingsPage() {
       />
 
       <div className="grid gap-6 xl:grid-cols-[420px_minmax(0,1fr)]">
-        <Card className="h-fit xl:sticky xl:top-[104px]">
+        <Card className="h-fit xl:sticky xl:top-[80px] xl:max-h-[calc(100svh-6rem)] xl:overflow-y-auto">
           <CardHeader>
             <CardTitle>Create job posting</CardTitle>
             <CardDescription>Define the role, required skills, minimum experience, and education expectations.</CardDescription>

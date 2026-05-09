@@ -2061,5 +2061,500 @@
     ],
     "raw_text": "Benjamin Jackson\nbenjamin-jackson@hotmail.com | +1-708-898-1265\n\nSUMMARY\nExperienced Full Stack Developer with 5.4 years of professional experience. Proficient in docker, sql, git, node.js, python, javascript, postgresql, react, rest, typescript, mongodb. Passionate about building high-quality software solutions.\n\nEDUCATION\nMaster's Degree in Computer Science\nUniversity of Technology, 2017\n\nEXPERIENCE\nFull Stack Developer | Tech Company Inc. | 3 years\n- Developed and maintained software applications using docker, sql, git, node.js\n- Collaborated with cross-functional teams in agile environment\n- Implemented best practices for code quality and testing\n\nFull Stack Developer | StartupXYZ | 3 years\n- Built features using git, node.js, python\n- Participated in code reviews and technical discussions\n- Contributed to CI/CD pipeline improvements\n\nSKILLS\ndocker, sql, git, node.js, python, javascript, postgresql, react, rest, typescript, mongodb\n",
     "category": "Full Stack Developer"
-  }
-]
+  },
+  {
+    "name": "Sophie Laurent",
+    "email": "sophie.laurent@email.com",
+    "phone": "+1-212-555-0181",
+    "education": "Master",
+    "experience_years": 6.0,
+    "category": "Finance",
+    "skills": [
+      "financial modeling",
+      "financial analysis",
+      "excel",
+      "sql",
+      "bloomberg",
+      "valuation",
+      "dcf",
+      "equity research",
+      "powerpoint",
+      "financial reporting"
+    ],
+    "raw_text": "Sophie Laurent\nsophie.laurent@email.com | +1-212-555-0181 | New York, NY\n\nSUMMARY\nCFA charterholder with 6 years of experience in equity research and investment banking. Deep expertise in financial modeling, valuation, and capital markets analysis.\n\nEXPERIENCE\nSenior Equity Research Analyst | Morgan Stanley | 06/2021 - Present\n- Build complex DCF, LBO, and comparable company analysis models for technology sector coverage\n- Publish initiation reports and quarterly earnings previews using Bloomberg Terminal and FactSet\n- Collaborate with institutional sales team on client presentations\n\nInvestment Banking Analyst | Goldman Sachs | 07/2018 - 05/2021\n- Executed 12+ M&A advisory mandates with aggregate deal value of $4.2B\n- Prepared pitchbooks, financial models, and due diligence packages\n- Performed DCF, LBO, and precedent transaction analyses\n\nEDUCATION\nMaster of Finance | Columbia Business School | 2018\nBachelor of Economics | New York University | 2016\n\nSKILLS\nFinancial Modeling, Financial Analysis, Valuation, DCF, LBO, Equity Research, Bloomberg Terminal, Excel, SQL, PowerPoint, Financial Reporting, Merger & Acquisition, CFA"
+  },
+  {
+    "name": "Marcus Webb",
+    "email": "marcus.webb@email.com",
+    "phone": "+44-20-555-0182",
+    "education": "Master",
+    "experience_years": 8.0,
+    "category": "Finance",
+    "skills": [
+      "risk management",
+      "credit risk",
+      "market risk",
+      "var",
+      "stress testing",
+      "regulatory reporting",
+      "python",
+      "r",
+      "basel iii",
+      "financial modeling",
+      "sql"
+    ],
+    "raw_text": "Marcus Webb\nmarcus.webb@email.com | +44-20-555-0182 | London, UK\n\nSUMMARY\nFRM-certified risk professional with 8 years of experience in quantitative risk management at Tier-1 banks. Expert in credit, market, and operational risk with strong Python/R quantitative skills.\n\nEXPERIENCE\nHead of Market Risk | HSBC | 03/2020 - Present\n- Lead VaR model development and stress testing frameworks (Basel III / FRTB)\n- Manage regulatory reporting to PRA and EBA\n- Drive model risk governance and validation processes\n\nSenior Credit Risk Analyst | Barclays | 01/2016 - 02/2020\n- Build credit risk models for corporate and SME portfolios using Python/R\n- Develop IFRS 9 Expected Credit Loss (ECL) models\n- Conduct stress testing and scenario analysis\n\nEDUCATION\nMSc Financial Mathematics | Imperial College London | 2015\nBSc Mathematics | University of Bristol | 2013\n\nSKILLS\nRisk Management, Credit Risk, Market Risk, Operational Risk, VaR, Stress Testing, Basel III, Regulatory Reporting, Python, R, SQL, Financial Modeling, FRM"
+  },
+  {
+    "name": "Fatima Al-Rashidi",
+    "email": "fatima.rashidi@email.com",
+    "phone": "+971-50-555-0183",
+    "education": "Bachelor",
+    "experience_years": 4.0,
+    "category": "Finance",
+    "skills": [
+      "aml",
+      "kyc",
+      "compliance",
+      "regulatory compliance",
+      "risk management",
+      "financial analysis",
+      "excel",
+      "sql"
+    ],
+    "raw_text": "Fatima Al-Rashidi\nfatima.rashidi@email.com | +971-50-555-0183 | Dubai, UAE\n\nSUMMARY\nCompliance and AML professional with 4 years of experience in banking and financial services. Specialised in KYC/AML program development, regulatory compliance, and financial crime prevention.\n\nEXPERIENCE\nAML Compliance Officer | Emirates NBD | 08/2022 - Present\n- Manage transaction monitoring, suspicious activity reporting, and KYC onboarding\n- Conduct AML risk assessments and develop compliance policies\n- Liaise with regulators (CBUAE, FATF)\n\nCompliance Analyst | Abu Dhabi Islamic Bank | 06/2020 - 07/2022\n- Performed KYC due diligence on corporate and individual clients\n- Supported regulatory examinations and internal audits\n- Developed AML training materials\n\nEDUCATION\nBachelor of Finance | American University of Sharjah | 2020\n\nSKILLS\nAML, KYC, Anti-Money Laundering, Compliance, Regulatory Compliance, Risk Management, Financial Analysis, Excel, SQL"
+  },
+  {
+    "name": "Oliver Thornton",
+    "email": "oliver.thornton@email.com",
+    "phone": "+1-312-555-0184",
+    "education": "Bachelor",
+    "experience_years": 3.0,
+    "category": "Finance",
+    "skills": [
+      "financial modeling",
+      "budgeting",
+      "forecasting",
+      "excel",
+      "sap fico",
+      "financial reporting",
+      "variance analysis",
+      "gaap",
+      "powerpoint"
+    ],
+    "raw_text": "Oliver Thornton\noliver.thornton@email.com | +1-312-555-0184 | Chicago, IL\n\nSUMMARY\nFinancial Analyst with 3 years of FP&A experience in manufacturing and consumer goods. Proficient in SAP FICO, advanced Excel modeling, and GAAP financial reporting.\n\nEXPERIENCE\nFinancial Analyst – FP&A | Caterpillar Inc. | 07/2021 - Present\n- Build annual budgets and rolling forecasts for $500M revenue business unit\n- Perform variance analysis comparing actuals vs. plan and prior year\n- Prepare monthly management reporting packages for CFO\n\nJunior Financial Analyst | Abbott Laboratories | 06/2020 - 06/2021\n- Supported month-end close process and SAP FICO journal entries\n- Built Excel models for capital expenditure analysis\n\nEDUCATION\nBachelor of Accounting | University of Illinois | 2020\n\nSKILLS\nFinancial Modeling, Budgeting, Forecasting, Excel, SAP FICO, Financial Reporting, Variance Analysis, GAAP, PowerPoint"
+  },
+  {
+    "name": "Yuki Tanaka",
+    "email": "yuki.tanaka@email.com",
+    "phone": "+81-3-555-0185",
+    "education": "Bachelor",
+    "experience_years": 5.0,
+    "category": "Finance",
+    "skills": [
+      "treasury management",
+      "cash management",
+      "fx hedging",
+      "financial modeling",
+      "excel",
+      "sap",
+      "forecasting",
+      "financial analysis"
+    ],
+    "raw_text": "Yuki Tanaka\nyuki.tanaka@email.com | +81-3-555-0185 | Tokyo, Japan\n\nSUMMARY\nTreasury professional with 5 years of experience managing cash, FX, and debt in multinational corporations. Expert in SAP Treasury and financial risk management.\n\nEXPERIENCE\nTreasury Manager | Sony Corporation | 04/2021 - Present\n- Manage $2B+ global cash positions and short-term investment portfolio\n- Execute FX hedging strategies (forwards, options) across 15 currencies\n- Lead SAP Treasury module implementation\n\nTreasury Analyst | Honda Motor Company | 04/2019 - 03/2021\n- Prepared daily cash position reports and liquidity forecasts\n- Supported bank relationship management and credit facility negotiations\n\nEDUCATION\nBachelor of Finance | Keio University | 2019\n\nSKILLS\nTreasury Management, Cash Management, FX Hedging, Financial Modeling, Excel, SAP, Forecasting, Financial Analysis"
+  },
+  {
+    "name": "Dr. Emma Hartley",
+    "email": "emma.hartley@email.com",
+    "phone": "+1-617-555-0186",
+    "education": "PhD",
+    "experience_years": 7.0,
+    "category": "Healthcare",
+    "skills": [
+      "clinical research",
+      "clinical trials",
+      "biostatistics",
+      "r",
+      "python",
+      "clinical data management",
+      "redcap",
+      "gcp",
+      "fda regulations",
+      "medical writing"
+    ],
+    "raw_text": "Dr. Emma Hartley, PhD\nemma.hartley@email.com | +1-617-555-0186 | Boston, MA\n\nSUMMARY\nClinical data scientist with PhD in Biostatistics and 7 years of experience in pharmaceutical and CRO environments. Expert in clinical trial analysis, FDA regulatory submissions, and real-world evidence studies.\n\nEXPERIENCE\nPrincipal Biostatistician | Pfizer | 09/2020 - Present\n- Lead statistical analysis for Phase II/III oncology trials (NDA/BLA submissions)\n- Develop SAP, TLF shells, and CDISC-compliant datasets\n- Program analyses in R and SAS; manage REDCap databases\n\nBiostatistician | IQVIA | 06/2017 - 08/2020\n- Supported 15+ clinical trials across therapeutic areas\n- Applied survival analysis, mixed models, and Bayesian methods\n\nEDUCATION\nPhD Biostatistics | Harvard School of Public Health | 2017\nBSc Statistics | University of Edinburgh | 2013\n\nSKILLS\nClinical Research, Clinical Trials, Biostatistics, R, Python, Clinical Data Management, REDCap, GCP, FDA Regulations, Medical Writing, ICH Guidelines, Regulatory Submissions"
+  },
+  {
+    "name": "James Okafor",
+    "email": "james.okafor@email.com",
+    "phone": "+1-713-555-0187",
+    "education": "Bachelor",
+    "experience_years": 4.0,
+    "category": "Healthcare",
+    "skills": [
+      "emr",
+      "ehr",
+      "epic",
+      "hl7",
+      "fhir",
+      "hipaa",
+      "healthcare interoperability",
+      "sql",
+      "project management"
+    ],
+    "raw_text": "James Okafor\njames.okafor@email.com | +1-713-555-0187 | Houston, TX\n\nSUMMARY\nHealthcare IT professional with 4 years of experience implementing Epic EHR systems and HL7/FHIR integrations across large health systems.\n\nEXPERIENCE\nEpic Implementation Consultant | Texas Medical Center | 03/2022 - Present\n- Lead Epic Ambulatory module go-live for 800-physician practice\n- Configure HL7 interfaces and FHIR API integrations\n- Ensure HIPAA compliance in all data exchange workflows\n\nHealthcare IT Analyst | Memorial Hermann | 06/2020 - 02/2022\n- Supported EMR/EHR system administration and end-user training\n- Resolved HL7 interface issues and data quality problems\n\nEDUCATION\nBachelor of Health Information Management | University of Houston | 2020\n\nSKILLS\nEMR, EHR, Epic, HL7, FHIR, HIPAA, Healthcare Interoperability, SQL, Project Management"
+  },
+  {
+    "name": "Natalie Dupont",
+    "email": "natalie.dupont@email.com",
+    "phone": "+33-1-555-0188",
+    "education": "Master",
+    "experience_years": 5.0,
+    "category": "Healthcare",
+    "skills": [
+      "pharmacovigilance",
+      "drug safety",
+      "adverse event reporting",
+      "fda regulations",
+      "gcp",
+      "medical writing",
+      "regulatory submissions",
+      "clinical research"
+    ],
+    "raw_text": "Natalie Dupont\nnatalie.dupont@email.com | +33-1-555-0188 | Paris, France\n\nSUMMARY\nPharmacovigilance specialist with 5 years in global drug safety at major pharma companies. Expert in adverse event processing, PSUR writing, and EMA/FDA regulatory submissions.\n\nEXPERIENCE\nSenior PV Specialist | Sanofi | 01/2021 - Present\n- Process and assess serious adverse event (SAE) reports per ICH E2 guidelines\n- Prepare Periodic Safety Update Reports (PSURs) for 6 marketed products\n- Signal detection and evaluation using EudraVigilance and VigiBase\n\nPV Scientist | Novartis | 03/2019 - 12/2020\n- Managed global adverse event database (Argus Safety)\n- Authored Risk Management Plans (RMPs) and Patient Labelling\n\nEDUCATION\nMSc Pharmacology | Université Paris-Saclay | 2019\nBSc Pharmacy | Université de Lyon | 2017\n\nSKILLS\nPharmacovigilance, Drug Safety, Adverse Event Reporting, FDA Regulations, GCP, Medical Writing, Regulatory Submissions, Clinical Research, ICH Guidelines"
+  },
+  {
+    "name": "Priya Subramaniam",
+    "email": "priya.subramaniam@email.com",
+    "phone": "+1-617-555-0189",
+    "education": "Master",
+    "experience_years": 5.0,
+    "category": "Healthcare",
+    "skills": [
+      "machine learning",
+      "python",
+      "r",
+      "healthcare analytics",
+      "hl7",
+      "fhir",
+      "nlp",
+      "biostatistics",
+      "sql",
+      "data science"
+    ],
+    "raw_text": "Priya Subramaniam\npriya.subramaniam@email.com | +1-617-555-0189 | Boston, MA\n\nSUMMARY\nHealthcare data scientist with 5 years of experience applying machine learning and NLP to clinical and claims data to improve patient outcomes and operational efficiency.\n\nEXPERIENCE\nSenior Data Scientist | Mass General Brigham | 06/2021 - Present\n- Develop sepsis early warning models using EHR time-series data (AUC 0.92)\n- Apply NLP to unstructured clinical notes for ICD-10 coding automation\n- Collaborate with clinical informatics teams on HL7/FHIR data pipelines\n\nData Scientist | Blue Cross Blue Shield | 08/2019 - 05/2021\n- Built predictive models for readmission risk and chronic disease management\n- Analyzed Medicare/Medicaid claims data for population health programs\n\nEDUCATION\nMSc Biomedical Informatics | Harvard Medical School | 2019\nBSc Computer Science | IIT Madras | 2017\n\nSKILLS\nMachine Learning, Python, R, Healthcare Analytics, HL7, FHIR, NLP, Biostatistics, SQL, Data Science, ICD-10"
+  },
+  {
+    "name": "Isabella Romano",
+    "email": "isabella.romano@email.com",
+    "phone": "+39-02-555-0190",
+    "education": "Bachelor",
+    "experience_years": 6.0,
+    "category": "Marketing",
+    "skills": [
+      "digital marketing",
+      "seo",
+      "sem",
+      "google ads",
+      "meta ads",
+      "google analytics",
+      "ga4",
+      "hubspot",
+      "email marketing",
+      "a/b testing",
+      "content marketing"
+    ],
+    "raw_text": "Isabella Romano\nisabella.romano@email.com | +39-02-555-0190 | Milan, Italy\n\nSUMMARY\nDigital marketing leader with 6 years of experience scaling performance marketing programs for e-commerce and B2B SaaS companies. Google Ads and Meta Blueprint certified.\n\nEXPERIENCE\nHead of Digital Marketing | Zalando Italy | 04/2022 - Present\n- Manage €5M annual paid media budget across Google Ads, Meta Ads, and programmatic\n- Lead SEO strategy driving 120% organic traffic growth\n- Implement GA4 migration and attribution modeling\n\nSenior Marketing Manager | HubSpot Partner Agency | 01/2020 - 03/2022\n- Managed 20+ client campaigns across SEM, SEO, and email marketing\n- Built HubSpot marketing automation workflows and lead nurture sequences\n\nEDUCATION\nBachelor of Marketing | Bocconi University | 2018\n\nSKILLS\nDigital Marketing, SEO, SEM, PPC, Google Ads, Meta Ads, Google Analytics, GA4, HubSpot, Email Marketing, A/B Testing, Content Marketing, Performance Marketing"
+  },
+  {
+    "name": "Carlos Mendez",
+    "email": "carlos.mendez@email.com",
+    "phone": "+34-91-555-0191",
+    "education": "Bachelor",
+    "experience_years": 4.0,
+    "category": "Marketing",
+    "skills": [
+      "seo",
+      "content marketing",
+      "copywriting",
+      "ahrefs",
+      "semrush",
+      "google analytics",
+      "content strategy",
+      "a/b testing",
+      "social media marketing"
+    ],
+    "raw_text": "Carlos Mendez\ncarlos.mendez@email.com | +34-91-555-0191 | Madrid, Spain\n\nSUMMARY\nSEO & content specialist with 4 years of experience growing organic search presence for media and tech brands. Expert in technical SEO, content strategy, and link building.\n\nEXPERIENCE\nSEO Manager | Idealista | 06/2022 - Present\n- Grew organic sessions by 180% through technical SEO fixes and content hub strategy\n- Conduct keyword research using Ahrefs and SEMrush; manage 50+ content briefs/month\n- Implement structured data, Core Web Vitals optimisation\n\nContent Marketing Lead | Typeform | 03/2020 - 05/2022\n- Built content calendar and editorial workflow for SaaS blog (200K monthly readers)\n- Managed team of 8 freelance writers; optimised content for E-E-A-T\n\nEDUCATION\nBachelor of Journalism | Universidad Complutense de Madrid | 2020\n\nSKILLS\nSEO, Content Marketing, Copywriting, Ahrefs, SEMrush, Google Analytics, Content Strategy, A/B Testing, Social Media Marketing"
+  },
+  {
+    "name": "Aisha Nwosu",
+    "email": "aisha.nwosu@email.com",
+    "phone": "+234-80-555-0192",
+    "education": "Bachelor",
+    "experience_years": 3.0,
+    "category": "Marketing",
+    "skills": [
+      "brand management",
+      "social media marketing",
+      "content marketing",
+      "canva",
+      "adobe creative suite",
+      "community management",
+      "copywriting",
+      "influencer marketing",
+      "google analytics"
+    ],
+    "raw_text": "Aisha Nwosu\naisha.nwosu@email.com | +234-80-555-0192 | Lagos, Nigeria\n\nSUMMARY\nCreative brand and social media professional with 3 years of experience building engaged communities and executing multi-channel brand campaigns for consumer brands.\n\nEXPERIENCE\nBrand & Social Media Manager | Jumia | 08/2023 - Present\n- Manage brand identity and social media presence across Instagram (500K followers), LinkedIn, TikTok\n- Execute influencer marketing campaigns with 8x ROAS\n- Design visual assets using Adobe Creative Suite and Canva\n\nSocial Media Coordinator | Paystack | 05/2021 - 07/2023\n- Grew Twitter/X following from 20K to 150K through organic content strategy\n- Managed community responses and crisis communications\n\nEDUCATION\nBachelor of Mass Communication | University of Lagos | 2021\n\nSKILLS\nBrand Management, Social Media Marketing, Content Marketing, Canva, Adobe Creative Suite, Community Management, Copywriting, Influencer Marketing, Google Analytics"
+  },
+  {
+    "name": "Thomas Müller",
+    "email": "thomas.mueller@email.com",
+    "phone": "+49-89-555-0193",
+    "education": "Master",
+    "experience_years": 5.0,
+    "category": "Marketing",
+    "skills": [
+      "crm",
+      "hubspot",
+      "email marketing",
+      "marketing automation",
+      "salesforce",
+      "customer lifecycle",
+      "sql",
+      "a/b testing",
+      "data analysis"
+    ],
+    "raw_text": "Thomas Müller\nthomas.mueller@email.com | +49-89-555-0193 | Munich, Germany\n\nSUMMARY\nCRM and marketing automation specialist with 5 years of experience building customer lifecycle programs for B2B SaaS and fintech companies. HubSpot and Salesforce Marketing Cloud certified.\n\nEXPERIENCE\nCRM Manager | N26 | 07/2022 - Present\n- Manage 40+ automated customer journeys across HubSpot reaching 2M+ users\n- Lead A/B testing program generating €3.2M additional annual revenue\n- Build SQL-based audience segmentation and personalisation frameworks\n\nMarketing Automation Specialist | Personio | 01/2020 - 06/2022\n- Implemented Salesforce Marketing Cloud for B2B demand generation\n- Managed email programme with 42% average open rate\n\nEDUCATION\nMSc Marketing | Ludwig Maximilian University Munich | 2019\nBSc Business | Frankfurt School | 2017\n\nSKILLS\nCRM, HubSpot, Email Marketing, Marketing Automation, Salesforce, Customer Lifecycle, SQL, A/B Testing, Data Analysis"
+  },
+  {
+    "name": "Victoria Chambers",
+    "email": "victoria.chambers@email.com",
+    "phone": "+44-20-555-0194",
+    "education": "Master",
+    "experience_years": 8.0,
+    "category": "Legal",
+    "skills": [
+      "corporate law",
+      "contract drafting",
+      "contract negotiation",
+      "merger & acquisition",
+      "legal research",
+      "legal writing",
+      "compliance",
+      "due diligence"
+    ],
+    "raw_text": "Victoria Chambers\nvictoria.chambers@email.com | +44-20-555-0194 | London, UK\n\nSUMMARY\nQualified solicitor with 8 years of experience in corporate law and M&A at Magic Circle firm. Specialist in cross-border transactions, contract negotiation, and corporate governance.\n\nEXPERIENCE\nSenior Associate | Freshfields Bruckhaus Deringer | 09/2019 - Present\n- Lead legal execution on 20+ M&A transactions (deal values £50M - £3B)\n- Draft and negotiate SPAs, JVAs, and SHA agreements\n- Advise boards on corporate governance and fiduciary duties\n\nAssociate | Allen & Overy | 09/2016 - 08/2019\n- Supported complex multi-jurisdictional M&A deals\n- Conducted legal due diligence on target companies\n\nEDUCATION\nLLM Corporate Law | London School of Economics | 2016\nLLB Law (First Class) | University of Cambridge | 2014\n\nSKILLS\nCorporate Law, Contract Drafting, Contract Negotiation, Merger & Acquisition, Legal Research, Legal Writing, Compliance, Due Diligence, Mergers & Acquisitions"
+  },
+  {
+    "name": "Rafael Souza",
+    "email": "rafael.souza@email.com",
+    "phone": "+55-11-555-0195",
+    "education": "Bachelor",
+    "experience_years": 4.0,
+    "category": "Legal",
+    "skills": [
+      "data privacy",
+      "gdpr",
+      "ccpa",
+      "regulatory compliance",
+      "legal research",
+      "legal writing",
+      "compliance",
+      "contract drafting"
+    ],
+    "raw_text": "Rafael Souza\nrafael.souza@email.com | +55-11-555-0195 | São Paulo, Brazil\n\nSUMMARY\nData privacy lawyer and compliance specialist with 4 years of experience implementing GDPR, LGPD, and CCPA compliance programs for multinational technology companies.\n\nEXPERIENCE\nData Privacy Counsel | iFood | 03/2022 - Present\n- Developed LGPD/GDPR compliance framework covering 45M user records\n- Conducted DPIAs, managed data subject requests (DSARs)\n- Negotiated data processing agreements (DPAs) with 200+ vendors\n\nPrivacy Analyst | PwC Brazil | 01/2020 - 02/2022\n- Supported GDPR compliance gap analyses for financial sector clients\n- Developed privacy policies and cookie consent mechanisms\n\nEDUCATION\nBachelor of Law | Universidade de São Paulo | 2019\n\nSKILLS\nData Privacy, GDPR, CCPA, Regulatory Compliance, Legal Research, Legal Writing, Compliance, Contract Drafting"
+  },
+  {
+    "name": "Mei-Ling Chang",
+    "email": "meiling.chang@email.com",
+    "phone": "+886-2-555-0196",
+    "education": "Master",
+    "experience_years": 6.0,
+    "category": "Legal",
+    "skills": [
+      "intellectual property",
+      "patent law",
+      "trademark",
+      "copyright",
+      "contract drafting",
+      "legal research",
+      "licensing",
+      "compliance"
+    ],
+    "raw_text": "Mei-Ling Chang\nmeiling.chang@email.com | +886-2-555-0196 | Taipei, Taiwan\n\nSUMMARY\nIP attorney with 6 years of experience in patent prosecution, trademark portfolio management, and technology licensing for semiconductor and electronics companies.\n\nEXPERIENCE\nSenior IP Counsel | TSMC | 06/2020 - Present\n- Manage 2,000+ patent portfolio; prosecute US, EP, CN, JP applications\n- Negotiate and draft technology licensing agreements\n- Conduct freedom-to-operate (FTO) analyses for new product launches\n\nIP Associate | Perkins Coie LLP | 08/2018 - 05/2020\n- Drafted patent applications for semiconductor process innovations\n- Managed trademark registrations across 30 jurisdictions\n\nEDUCATION\nLLM Intellectual Property | University of California Berkeley | 2018\nBSc Electrical Engineering | National Taiwan University | 2015\n\nSKILLS\nIntellectual Property, Patent Law, Trademark, Copyright, Contract Drafting, Legal Research, Licensing"
+  },
+  {
+    "name": "Henrik Larsson",
+    "email": "henrik.larsson@email.com",
+    "phone": "+46-8-555-0197",
+    "education": "Master",
+    "experience_years": 9.0,
+    "category": "Mechanical Engineering",
+    "skills": [
+      "solidworks",
+      "catia",
+      "finite element analysis",
+      "ansys",
+      "mechanical design",
+      "autocad",
+      "lean manufacturing",
+      "fmea",
+      "quality management"
+    ],
+    "raw_text": "Henrik Larsson\nhenrik.larsson@email.com | +46-8-555-0197 | Stockholm, Sweden\n\nSUMMARY\nLead mechanical design engineer with 9 years of experience in automotive and heavy machinery sectors. Expert in SolidWorks, CATIA, and ANSYS FEA with track record of delivering cost-optimized designs.\n\nEXPERIENCE\nLead Mechanical Engineer | Volvo Cars | 03/2019 - Present\n- Lead structural design of BEV battery enclosures (SolidWorks, CATIA V5)\n- Perform non-linear FEA crash and durability simulations in ANSYS\n- Chair FMEA workshops and drive DFMEA/PFMEA closure\n\nMechanical Design Engineer | SKF | 08/2015 - 02/2019\n- Designed precision bearing assemblies for aerospace applications\n- Applied GD&T and tolerance stack-up analysis\n\nEDUCATION\nMSc Mechanical Engineering | KTH Royal Institute of Technology | 2015\nBSc Mechanical Engineering | Chalmers University | 2013\n\nSKILLS\nSolidWorks, CATIA, Finite Element Analysis, ANSYS, Mechanical Design, AutoCAD, Lean Manufacturing, FMEA, Quality Management, ISO 9001"
+  },
+  {
+    "name": "Amara Diallo",
+    "email": "amara.diallo@email.com",
+    "phone": "+33-1-555-0198",
+    "education": "Bachelor",
+    "experience_years": 5.0,
+    "category": "Civil Engineering",
+    "skills": [
+      "civil engineering",
+      "structural analysis",
+      "autocad",
+      "revit",
+      "bim",
+      "construction management",
+      "project scheduling",
+      "ms project"
+    ],
+    "raw_text": "Amara Diallo\namara.diallo@email.com | +33-1-555-0198 | Paris, France\n\nSUMMARY\nStructural engineer with 5 years of experience designing commercial and infrastructure projects in France and Sub-Saharan Africa. Proficient in AutoCAD, Revit, and structural analysis software.\n\nEXPERIENCE\nStructural Engineer | Bouygues Construction | 09/2021 - Present\n- Design reinforced concrete and steel structures for commercial buildings\n- Develop Revit BIM models and coordinate with MEP, architectural teams\n- Prepare structural calculations per Eurocode standards\n\nJunior Structural Engineer | Egis | 07/2019 - 08/2021\n- Supported design of bridge infrastructure in Senegal and Ivory Coast\n- Prepared AutoCAD drawings and construction specifications\n\nEDUCATION\nBachelor of Civil Engineering | École des Ponts ParisTech | 2019\n\nSKILLS\nCivil Engineering, Structural Analysis, AutoCAD, Revit, BIM, Construction Management, Project Scheduling, MS Project, Eurocode"
+  },
+  {
+    "name": "Sanjay Patel",
+    "email": "sanjay.patel@email.com",
+    "phone": "+91-98-555-0199",
+    "education": "Bachelor",
+    "experience_years": 7.0,
+    "category": "Electrical Engineering",
+    "skills": [
+      "electrical engineering",
+      "plc programming",
+      "scada",
+      "instrumentation",
+      "control systems",
+      "autocad",
+      "quality management",
+      "lean manufacturing"
+    ],
+    "raw_text": "Sanjay Patel\nsanjay.patel@email.com | +91-98-555-0199 | Mumbai, India\n\nSUMMARY\nElectrical & instrumentation engineer with 7 years in oil & gas and chemical process industries. Expert in PLC/DCS programming, SCADA implementation, and functional safety (SIL).\n\nEXPERIENCE\nE&I Senior Engineer | Reliance Industries | 04/2020 - Present\n- Design instrument loop diagrams, cause-and-effect matrices, and P&IDs\n- Program Siemens S7-1500 PLCs and Honeywell DCS systems\n- Implement SCADA (WinCC) for refinery process monitoring\n\nE&I Engineer | Larsen & Toubro | 06/2017 - 03/2020\n- Supported EPC projects in petrochemical sector\n- Performed functional safety assessments per IEC 61511\n\nEDUCATION\nBachelor of Electrical Engineering | IIT Bombay | 2017\n\nSKILLS\nElectrical Engineering, PLC Programming, SCADA, Instrumentation, Control Systems, AutoCAD, Quality Management, Lean Manufacturing, Functional Safety"
+  },
+  {
+    "name": "Laura Bianchi",
+    "email": "laura.bianchi@email.com",
+    "phone": "+39-02-555-0200",
+    "education": "Master",
+    "experience_years": 6.0,
+    "category": "Manufacturing Engineering",
+    "skills": [
+      "lean manufacturing",
+      "six sigma",
+      "quality management",
+      "fmea",
+      "root cause analysis",
+      "process improvement",
+      "autocad",
+      "iso 9001"
+    ],
+    "raw_text": "Laura Bianchi\nlaura.bianchi@email.com | +39-02-555-0200 | Turin, Italy\n\nSUMMARY\nLean Six Sigma Black Belt with 6 years of experience driving process improvement in automotive manufacturing. Achieved €8M cost savings through waste elimination and quality initiatives.\n\nEXPERIENCE\nLean Manufacturing Manager | Ferrari S.p.A. | 01/2022 - Present\n- Lead Kaizen events and VSM across 5 production lines\n- Implement SPC (Statistical Process Control) reducing defect rate by 40%\n- Lead IATF 16949 audit preparation and supplier quality audits\n\nProcess Engineer | FCA (Stellantis) | 06/2018 - 12/2021\n- Applied FMEA, root cause analysis (8D, Ishikawa) on assembly defects\n- Implemented 5S and Visual Management standards\n\nEDUCATION\nMSc Industrial Engineering | Politecnico di Milano | 2018\nBSc Mechanical Engineering | Università di Bologna | 2016\n\nSKILLS\nLean Manufacturing, Six Sigma, Quality Management, FMEA, Root Cause Analysis, Process Improvement, AutoCAD, ISO 9001, IATF 16949"
+  },
+  {
+    "name": "Sarah Okonkwo",
+    "email": "sarah.okonkwo@email.com",
+    "phone": "+44-20-555-0201",
+    "education": "Master",
+    "experience_years": 7.0,
+    "category": "Human Resources",
+    "skills": [
+      "talent acquisition",
+      "performance management",
+      "employee relations",
+      "change management",
+      "hr analytics",
+      "workday",
+      "employment law",
+      "organizational development"
+    ],
+    "raw_text": "Sarah Okonkwo\nsarah.okonkwo@email.com | +44-20-555-0201 | London, UK\n\nSUMMARY\nStrategic HR Business Partner with 7 years of experience partnering with senior leadership in financial services and technology sectors. CIPD Level 7 qualified.\n\nEXPERIENCE\nSenior HR Business Partner | Barclays | 09/2020 - Present\n- Partner with 3 business units (1,500 employees) on all people matters\n- Lead organizational design and restructuring programmes\n- Manage complex employee relations cases and employment tribunal risk\n- Drive talent management, succession planning, and diversity & inclusion\n\nHR Business Partner | EY | 06/2017 - 08/2020\n- Supported 5 service lines through Workday implementation\n- Managed performance management cycles and year-end compensation reviews\n\nEDUCATION\nMSc Human Resource Management | London School of Economics | 2017\nBA Psychology | University of Birmingham | 2015\n\nSKILLS\nTalent Acquisition, Performance Management, Employee Relations, Change Management, HR Analytics, Workday, Employment Law, Organizational Development, Succession Planning, Diversity & Inclusion"
+  },
+  {
+    "name": "Daniel Kim",
+    "email": "daniel.kim@email.com",
+    "phone": "+1-415-555-0202",
+    "education": "Bachelor",
+    "experience_years": 4.0,
+    "category": "Human Resources",
+    "skills": [
+      "talent acquisition",
+      "recruitment",
+      "linkedin recruiter",
+      "sourcing",
+      "hris",
+      "hr analytics",
+      "onboarding",
+      "stakeholder management"
+    ],
+    "raw_text": "Daniel Kim\ndaniel.kim@email.com | +1-415-555-0202 | San Francisco, CA\n\nSUMMARY\nTalent acquisition professional with 4 years of experience recruiting technical and business talent for high-growth technology startups and Fortune 500 companies.\n\nEXPERIENCE\nSenior Talent Acquisition Partner | Stripe | 01/2023 - Present\n- Full-cycle recruitment for engineering, product, and go-to-market roles\n- Source passive candidates using LinkedIn Recruiter and Boolean search\n- Manage recruiting process in Greenhouse ATS; report on TTF and cost-per-hire\n\nRecruiter | LinkedIn | 07/2020 - 12/2022\n- Hired 200+ candidates across EMEA and APAC regions\n- Partnered with HRBPs on workforce planning and talent pipeline development\n\nEDUCATION\nBachelor of Psychology | UC San Diego | 2020\n\nSKILLS\nTalent Acquisition, Recruitment, LinkedIn Recruiter, Sourcing, HRIS, HR Analytics, Onboarding, Stakeholder Management, Greenhouse"
+  },
+  {
+    "name": "Charlotte Dubois",
+    "email": "charlotte.dubois@email.com",
+    "phone": "+33-1-555-0203",
+    "education": "Master",
+    "experience_years": 5.0,
+    "category": "Human Resources",
+    "skills": [
+      "learning & development",
+      "instructional design",
+      "e-learning",
+      "articulate storyline",
+      "lms",
+      "moodle",
+      "training delivery",
+      "content creation",
+      "facilitation",
+      "hr analytics"
+    ],
+    "raw_text": "Charlotte Dubois\ncharlotte.dubois@email.com | +33-1-555-0203 | Paris, France\n\nSUMMARY\nLearning & Development specialist with 5 years designing impactful digital and blended learning experiences for global organisations. Certified in Kirkpatrick Evaluation and Articulate Storyline.\n\nEXPERIENCE\nL&D Specialist | L'Oréal | 04/2022 - Present\n- Design leadership development programs for 500+ managers globally\n- Build SCORM-compliant e-learning in Articulate Storyline and Rise\n- Administer Cornerstone OnDemand LMS; track completion and ROI\n\nL&D Coordinator | BNP Paribas | 09/2019 - 03/2022\n- Facilitated soft skills workshops (communication, negotiation, leadership)\n- Migrated legacy training content to Moodle LMS\n\nEDUCATION\nMSc Organizational Psychology | Sciences Po Paris | 2019\nBA Human Resources | Université Paris-Dauphine | 2017\n\nSKILLS\nLearning & Development, Instructional Design, E-Learning, Articulate Storyline, LMS, Moodle, Training Delivery, Content Creation, Facilitation, HR Analytics, Adult Learning Theory"
+  },
+  {
+    "name": "Ahmed Hassan",
+    "email": "ahmed.hassan@email.com",
+    "phone": "+20-2-555-0204",
+    "education": "Bachelor",
+    "experience_years": 5.0,
+    "category": "Supply Chain",
+    "skills": [
+      "supply chain management",
+      "demand planning",
+      "s&op",
+      "inventory management",
+      "sap scm",
+      "sql",
+      "excel",
+      "data analysis",
+      "procurement"
+    ],
+    "raw_text": "Ahmed Hassan\nahmed.hassan@email.com | +20-2-555-0204 | Cairo, Egypt\n\nSUMMARY\nSupply chain analyst with 5 years of experience optimising demand planning, inventory, and procurement processes for FMCG companies across MENA.\n\nEXPERIENCE\nSupply Chain Analyst | Unilever Egypt | 06/2021 - Present\n- Lead S&OP process for 3 product categories (€200M revenue)\n- Build demand forecasting models reducing forecast error by 18%\n- Manage SAP SCM modules (MM, SD, PP) and data quality\n\nSupply Planner | Nestlé | 07/2019 - 05/2021\n- Managed finished goods inventory for 150 SKUs\n- Conducted root cause analysis on service failures\n\nEDUCATION\nBachelor of Industrial Engineering | Cairo University | 2019\n\nSKILLS\nSupply Chain Management, Demand Planning, S&OP, Inventory Management, SAP SCM, SQL, Excel, Data Analysis, Procurement"
+  },
+  {
+    "name": "Anna Kowalski",
+    "email": "anna.kowalski@email.com",
+    "phone": "+48-22-555-0205",
+    "education": "Master",
+    "experience_years": 8.0,
+    "category": "Supply Chain",
+    "skills": [
+      "procurement",
+      "strategic sourcing",
+      "vendor management",
+      "category management",
+      "contract negotiation",
+      "sap",
+      "rfq",
+      "supply chain management",
+      "compliance"
+    ],
+    "raw_text": 

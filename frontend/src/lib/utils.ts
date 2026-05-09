@@ -25,3 +25,9 @@ export function getScoreTone(score: number) {
   if (score >= 45) return "average";
   return "weak";
 }
+
+export function scoreBadgeTone(score: number): "success" | "warning" | "danger" {
+  if (score >= 70) return "success";
+  if (score >= 45) return "warning";
+  return "danger";
+}

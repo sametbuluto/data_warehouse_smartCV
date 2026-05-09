@@ -1,22 +1,889 @@
 [
-  {"title":"Senior Python Developer","description":"We are looking for an experienced Python developer to design, build, and maintain scalable backend services. The ideal candidate has deep expertise in Python frameworks such as FastAPI and Django, strong SQL database skills, and experience with Docker and AWS cloud services. You will work closely with data science teams to implement ML model serving pipelines. 5+ years experience required.","required_skills":["python","fastapi","django","sql","docker","aws","git","rest","linux"],"min_experience":5.0,"education_level":"Bachelor"},
-  {"title":"Junior Frontend Developer","description":"Entry-level position for a passionate frontend developer. You will build interactive user interfaces using React and modern CSS. Knowledge of JavaScript, HTML5, and responsive design is essential. Familiarity with Git and agile development practices preferred. This role is ideal for recent graduates with 0-2 years of experience.","required_skills":["javascript","react","html","css","git","agile"],"min_experience":0.0,"education_level":"Bachelor"},
-  {"title":"Data Analyst","description":"Seeking a detail-oriented Data Analyst to transform raw data into actionable insights. You will create dashboards, write SQL queries, perform statistical analysis, and present findings to stakeholders. Proficiency in Python, SQL, Excel, and visualization tools like Tableau or Power BI is required. 2+ years experience.","required_skills":["python","sql","excel","tableau","power bi","data analysis","pandas"],"min_experience":2.0,"education_level":"Bachelor"},
-  {"title":"Machine Learning Engineer","description":"Join our AI team to develop and deploy machine learning models. Strong Python skills, experience with TensorFlow or PyTorch, NLP techniques, and ML pipeline development are essential. You should understand feature engineering, model evaluation, and MLOps practices. Master's degree preferred.","required_skills":["python","machine learning","tensorflow","pytorch","nlp","pandas","numpy","docker","sql","scikit-learn"],"min_experience":3.0,"education_level":"Master"},
-  {"title":"DevOps Engineer","description":"We need a DevOps engineer to maintain our CI/CD pipelines, manage cloud infrastructure on AWS/GCP, and ensure system reliability. Experience with Docker, Kubernetes, Terraform, and monitoring tools is required. You will automate deployments and improve developer experience.","required_skills":["docker","kubernetes","aws","terraform","ci/cd","linux","git","jenkins","python"],"min_experience":3.0,"education_level":"Bachelor"},
-  {"title":"Full Stack Developer","description":"Looking for a versatile Full Stack Developer comfortable with both frontend and backend. You will work with React on the frontend and Node.js or Python on the backend, managing PostgreSQL databases. Experience with REST APIs and cloud deployment required.","required_skills":["javascript","react","node.js","python","postgresql","rest","git","docker","typescript"],"min_experience":3.0,"education_level":"Bachelor"},
-  {"title":"Backend Engineer","description":"Design and implement robust backend services using Java or Python. You will build RESTful APIs, manage database schemas, optimize query performance, and ensure high availability. Experience with microservices architecture and message queues preferred.","required_skills":["java","python","sql","rest","docker","microservices","git","spring boot","postgresql"],"min_experience":4.0,"education_level":"Bachelor"},
-  {"title":"React Developer","description":"Specialized frontend role focused on building complex React applications. Deep knowledge of React hooks, state management, TypeScript, and modern frontend tooling required. Experience with Next.js and TailwindCSS is a plus.","required_skills":["react","javascript","typescript","html","css","tailwind","git","rest","next.js"],"min_experience":2.0,"education_level":"Bachelor"},
-  {"title":"AI Research Engineer","description":"Conduct applied AI research and develop prototype models for NLP and computer vision tasks. Strong foundation in deep learning, published research, and hands-on experience with PyTorch required. PhD or Master's in CS/AI preferred.","required_skills":["python","pytorch","deep learning","nlp","computer vision","machine learning","numpy","pandas"],"min_experience":2.0,"education_level":"PhD"},
-  {"title":"Cloud Engineer","description":"Manage and optimize cloud infrastructure across AWS and GCP. Design scalable architectures, implement infrastructure-as-code with Terraform, and ensure security compliance. Experience with serverless computing and container orchestration.","required_skills":["aws","gcp","terraform","docker","kubernetes","linux","python","ci/cd"],"min_experience":3.0,"education_level":"Bachelor"},
-  {"title":"Data Scientist","description":"Apply statistical and machine learning techniques to solve business problems. Develop predictive models, perform A/B testing, and communicate insights through data storytelling. Strong Python, pandas, and visualization skills required.","required_skills":["python","machine learning","pandas","numpy","sql","scikit-learn","data analysis","matplotlib","statistics"],"min_experience":2.0,"education_level":"Master"},
-  {"title":"UI/UX Designer","description":"Design intuitive and beautiful user experiences for our web and mobile products. Create wireframes, prototypes, and high-fidelity mockups. Experience with Figma, user research, and design systems is essential.","required_skills":["figma","ui/ux","ux design","photoshop","html","css","prototyping"],"min_experience":2.0,"education_level":"Bachelor"},
-  {"title":"Java Developer","description":"Senior Java developer to build enterprise-grade applications using Spring Boot and microservices. Strong knowledge of JVM internals, design patterns, and SQL databases required. Experience with Kafka and distributed systems is a plus.","required_skills":["java","spring boot","sql","microservices","docker","git","rest","design patterns","maven"],"min_experience":4.0,"education_level":"Bachelor"},
-  {"title":"Mobile Developer","description":"Build cross-platform mobile applications using React Native or Flutter. Experience with native iOS/Android development is a plus. Must understand mobile UI patterns, state management, and API integration.","required_skills":["react native","flutter","javascript","typescript","git","rest","mobile","ios","android"],"min_experience":2.0,"education_level":"Bachelor"},
-  {"title":"QA Automation Engineer","description":"Design and implement automated test suites for web and API testing. Experience with Selenium, Cypress, or Playwright required. Knowledge of CI/CD integration and test strategy design is essential.","required_skills":["python","javascript","selenium","git","ci/cd","rest","agile","unit testing","sql"],"min_experience":2.0,"education_level":"Bachelor"},
-  {"title":"Site Reliability Engineer","description":"Ensure the reliability and performance of our production systems. Implement monitoring, alerting, and incident response procedures. Strong Linux administration and scripting skills required.","required_skills":["linux","python","docker","kubernetes","aws","monitoring","git","terraform","bash"],"min_experience":4.0,"education_level":"Bachelor"},
-  {"title":"NLP Engineer","description":"Develop natural language processing solutions for text analysis and information extraction. Experience with spaCy, transformers, and text classification models required. Build production-ready NLP pipelines.","required_skills":["python","nlp","spacy","machine learning","deep learning","pytorch","pandas","numpy","git"],"min_experience":2.0,"education_level":"Master"},
-  {"title":"Product Manager - Tech","description":"Lead product development for our AI platform. Define roadmaps, prioritize features, and coordinate with engineering teams. Strong technical background with understanding of ML/AI concepts required.","required_skills":["project management","agile","communication","leadership","data analysis","sql","jira"],"min_experience":3.0,"education_level":"Bachelor"},
-  {"title":"Cybersecurity Analyst","description":"Monitor, detect, and respond to security incidents. Perform vulnerability assessments and penetration testing. Knowledge of OWASP, network security, and security tools is essential.","required_skills":["linux","python","networking","security","git","bash","sql","monitoring"],"min_experience":2.0,"education_level":"Bachelor"},
-  {"title":"Blockchain Developer","description":"Develop smart contracts and decentralized applications. Experience with Solidity, Ethereum, and Web3 technologies required. Understanding of consensus mechanisms and crypto economics preferred.","required_skills":["javascript","python","solidity","git","docker","rest","typescript","node.js"],"min_experience":2.0,"education_level":"Bachelor"}
+  {
+    "title": "Senior Python Developer",
+    "description": "We are looking for an experienced Python developer to design, build, and maintain scalable backend services. The ideal candidate has deep expertise in Python frameworks such as FastAPI and Django, strong SQL database skills, and experience with Docker and AWS cloud services. You will work closely with data science teams to implement ML model serving pipelines. 5+ years experience required.",
+    "required_skills": [
+      "python",
+      "fastapi",
+      "django",
+      "sql",
+      "docker",
+      "aws",
+      "git",
+      "rest",
+      "linux"
+    ],
+    "min_experience": 5.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Junior Frontend Developer",
+    "description": "Entry-level position for a passionate frontend developer. You will build interactive user interfaces using React and modern CSS. Knowledge of JavaScript, HTML5, and responsive design is essential. Familiarity with Git and agile development practices preferred. This role is ideal for recent graduates with 0-2 years of experience.",
+    "required_skills": [
+      "javascript",
+      "react",
+      "html",
+      "css",
+      "git",
+      "agile"
+    ],
+    "min_experience": 0.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Data Analyst",
+    "description": "Seeking a detail-oriented Data Analyst to transform raw data into actionable insights. You will create dashboards, write SQL queries, perform statistical analysis, and present findings to stakeholders. Proficiency in Python, SQL, Excel, and visualization tools like Tableau or Power BI is required. 2+ years experience.",
+    "required_skills": [
+      "python",
+      "sql",
+      "excel",
+      "tableau",
+      "power bi",
+      "data analysis",
+      "pandas"
+    ],
+    "min_experience": 2.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Machine Learning Engineer",
+    "description": "Join our AI team to develop and deploy machine learning models. Strong Python skills, experience with TensorFlow or PyTorch, NLP techniques, and ML pipeline development are essential. You should understand feature engineering, model evaluation, and MLOps practices. Master's degree preferred.",
+    "required_skills": [
+      "python",
+      "machine learning",
+      "tensorflow",
+      "pytorch",
+      "nlp",
+      "pandas",
+      "numpy",
+      "docker",
+      "sql",
+      "scikit-learn"
+    ],
+    "min_experience": 3.0,
+    "education_level": "Master"
+  },
+  {
+    "title": "DevOps Engineer",
+    "description": "We need a DevOps engineer to maintain our CI/CD pipelines, manage cloud infrastructure on AWS/GCP, and ensure system reliability. Experience with Docker, Kubernetes, Terraform, and monitoring tools is required. You will automate deployments and improve developer experience.",
+    "required_skills": [
+      "docker",
+      "kubernetes",
+      "aws",
+      "terraform",
+      "ci/cd",
+      "linux",
+      "git",
+      "jenkins",
+      "python"
+    ],
+    "min_experience": 3.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Full Stack Developer",
+    "description": "Looking for a versatile Full Stack Developer comfortable with both frontend and backend. You will work with React on the frontend and Node.js or Python on the backend, managing PostgreSQL databases. Experience with REST APIs and cloud deployment required.",
+    "required_skills": [
+      "javascript",
+      "react",
+      "node.js",
+      "python",
+      "postgresql",
+      "rest",
+      "git",
+      "docker",
+      "typescript"
+    ],
+    "min_experience": 3.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Backend Engineer",
+    "description": "Design and implement robust backend services using Java or Python. You will build RESTful APIs, manage database schemas, optimize query performance, and ensure high availability. Experience with microservices architecture and message queues preferred.",
+    "required_skills": [
+      "java",
+      "python",
+      "sql",
+      "rest",
+      "docker",
+      "microservices",
+      "git",
+      "spring boot",
+      "postgresql"
+    ],
+    "min_experience": 4.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "React Developer",
+    "description": "Specialized frontend role focused on building complex React applications. Deep knowledge of React hooks, state management, TypeScript, and modern frontend tooling required. Experience with Next.js and TailwindCSS is a plus.",
+    "required_skills": [
+      "react",
+      "javascript",
+      "typescript",
+      "html",
+      "css",
+      "tailwind",
+      "git",
+      "rest",
+      "next.js"
+    ],
+    "min_experience": 2.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "AI Research Engineer",
+    "description": "Conduct applied AI research and develop prototype models for NLP and computer vision tasks. Strong foundation in deep learning, published research, and hands-on experience with PyTorch required. PhD or Master's in CS/AI preferred.",
+    "required_skills": [
+      "python",
+      "pytorch",
+      "deep learning",
+      "nlp",
+      "computer vision",
+      "machine learning",
+      "numpy",
+      "pandas"
+    ],
+    "min_experience": 2.0,
+    "education_level": "PhD"
+  },
+  {
+    "title": "Cloud Engineer",
+    "description": "Manage and optimize cloud infrastructure across AWS and GCP. Design scalable architectures, implement infrastructure-as-code with Terraform, and ensure security compliance. Experience with serverless computing and container orchestration.",
+    "required_skills": [
+      "aws",
+      "gcp",
+      "terraform",
+      "docker",
+      "kubernetes",
+      "linux",
+      "python",
+      "ci/cd"
+    ],
+    "min_experience": 3.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Data Scientist",
+    "description": "Apply statistical and machine learning techniques to solve business problems. Develop predictive models, perform A/B testing, and communicate insights through data storytelling. Strong Python, pandas, and visualization skills required.",
+    "required_skills": [
+      "python",
+      "machine learning",
+      "pandas",
+      "numpy",
+      "sql",
+      "scikit-learn",
+      "data analysis",
+      "matplotlib",
+      "statistics"
+    ],
+    "min_experience": 2.0,
+    "education_level": "Master"
+  },
+  {
+    "title": "UI/UX Designer",
+    "description": "Design intuitive and beautiful user experiences for our web and mobile products. Create wireframes, prototypes, and high-fidelity mockups. Experience with Figma, user research, and design systems is essential.",
+    "required_skills": [
+      "figma",
+      "ui/ux",
+      "ux design",
+      "photoshop",
+      "html",
+      "css",
+      "prototyping"
+    ],
+    "min_experience": 2.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Java Developer",
+    "description": "Senior Java developer to build enterprise-grade applications using Spring Boot and microservices. Strong knowledge of JVM internals, design patterns, and SQL databases required. Experience with Kafka and distributed systems is a plus.",
+    "required_skills": [
+      "java",
+      "spring boot",
+      "sql",
+      "microservices",
+      "docker",
+      "git",
+      "rest",
+      "design patterns",
+      "maven"
+    ],
+    "min_experience": 4.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Mobile Developer",
+    "description": "Build cross-platform mobile applications using React Native or Flutter. Experience with native iOS/Android development is a plus. Must understand mobile UI patterns, state management, and API integration.",
+    "required_skills": [
+      "react native",
+      "flutter",
+      "javascript",
+      "typescript",
+      "git",
+      "rest",
+      "mobile",
+      "ios",
+      "android"
+    ],
+    "min_experience": 2.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "QA Automation Engineer",
+    "description": "Design and implement automated test suites for web and API testing. Experience with Selenium, Cypress, or Playwright required. Knowledge of CI/CD integration and test strategy design is essential.",
+    "required_skills": [
+      "python",
+      "javascript",
+      "selenium",
+      "git",
+      "ci/cd",
+      "rest",
+      "agile",
+      "unit testing",
+      "sql"
+    ],
+    "min_experience": 2.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Site Reliability Engineer",
+    "description": "Ensure the reliability and performance of our production systems. Implement monitoring, alerting, and incident response procedures. Strong Linux administration and scripting skills required.",
+    "required_skills": [
+      "linux",
+      "python",
+      "docker",
+      "kubernetes",
+      "aws",
+      "monitoring",
+      "git",
+      "terraform",
+      "bash"
+    ],
+    "min_experience": 4.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "NLP Engineer",
+    "description": "Develop natural language processing solutions for text analysis and information extraction. Experience with spaCy, transformers, and text classification models required. Build production-ready NLP pipelines.",
+    "required_skills": [
+      "python",
+      "nlp",
+      "spacy",
+      "machine learning",
+      "deep learning",
+      "pytorch",
+      "pandas",
+      "numpy",
+      "git"
+    ],
+    "min_experience": 2.0,
+    "education_level": "Master"
+  },
+  {
+    "title": "Product Manager - Tech",
+    "description": "Lead product development for our AI platform. Define roadmaps, prioritize features, and coordinate with engineering teams. Strong technical background with understanding of ML/AI concepts required.",
+    "required_skills": [
+      "project management",
+      "agile",
+      "communication",
+      "leadership",
+      "data analysis",
+      "sql",
+      "jira"
+    ],
+    "min_experience": 3.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Cybersecurity Analyst",
+    "description": "Monitor, detect, and respond to security incidents. Perform vulnerability assessments and penetration testing. Knowledge of OWASP, network security, and security tools is essential.",
+    "required_skills": [
+      "linux",
+      "python",
+      "networking",
+      "security",
+      "git",
+      "bash",
+      "sql",
+      "monitoring"
+    ],
+    "min_experience": 2.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Blockchain Developer",
+    "description": "Develop smart contracts and decentralized applications. Experience with Solidity, Ethereum, and Web3 technologies required. Understanding of consensus mechanisms and crypto economics preferred.",
+    "required_skills": [
+      "javascript",
+      "python",
+      "solidity",
+      "git",
+      "docker",
+      "rest",
+      "typescript",
+      "node.js"
+    ],
+    "min_experience": 2.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Financial Analyst",
+    "description": "We are looking for a detail-oriented Financial Analyst to join our corporate finance team. You will build financial models, analyze investment opportunities, support budgeting and forecasting processes, and prepare management reporting packages. Strong proficiency in Excel, financial modeling, and accounting principles (GAAP/IFRS) is required. Experience with Bloomberg or Refinitiv preferred. CFA candidate or holder is a plus.",
+    "required_skills": [
+      "financial modeling",
+      "financial analysis",
+      "excel",
+      "sql",
+      "budgeting",
+      "forecasting",
+      "gaap",
+      "bloomberg"
+    ],
+    "min_experience": 2.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Senior Risk Manager",
+    "description": "We seek an experienced Risk Manager to oversee enterprise risk frameworks covering credit risk, market risk, and operational risk. You will conduct VaR analysis, stress testing, and regulatory reporting (Basel III / Solvency II). Deep expertise in quantitative risk methodologies, Python or R for risk modelling, and regulatory frameworks is essential. FRM or CFA designation preferred.",
+    "required_skills": [
+      "risk management",
+      "credit risk",
+      "market risk",
+      "var",
+      "stress testing",
+      "regulatory reporting",
+      "python",
+      "r",
+      "basel iii",
+      "frm"
+    ],
+    "min_experience": 5.0,
+    "education_level": "Master"
+  },
+  {
+    "title": "Investment Banking Analyst",
+    "description": "Join our M&A advisory team to support deal execution across sectors. Responsibilities include financial modeling, valuation (DCF, LBO, comparable company analysis), preparation of pitch books, and client due diligence. Candidates should be highly numerate, proficient in Excel and PowerPoint, with strong understanding of capital markets and corporate finance.",
+    "required_skills": [
+      "financial modeling",
+      "valuation",
+      "dcf",
+      "lbo",
+      "merger & acquisition",
+      "excel",
+      "powerpoint",
+      "bloomberg",
+      "financial analysis"
+    ],
+    "min_experience": 1.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Treasury & Cash Management Analyst",
+    "description": "Manage daily cash positions, FX hedging programs, and short-term investment portfolios. You will maintain banking relationships, support treasury system implementation (SAP Treasury), ensure compliance with treasury policies, and prepare liquidity forecasts. Experience in fx hedging, cash management, and ERP systems required.",
+    "required_skills": [
+      "treasury management",
+      "cash management",
+      "fx hedging",
+      "sap",
+      "financial modeling",
+      "excel",
+      "forecasting"
+    ],
+    "min_experience": 3.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "AML / Compliance Officer",
+    "description": "Responsible for designing and implementing AML, KYC and regulatory compliance programs. You will conduct transaction monitoring, suspicious activity reporting, and regulatory liaison. Must have deep knowledge of AML regulations, FATF standards, and financial crime typologies. Experience with Actimize or Temenos Compliance Suite preferred.",
+    "required_skills": [
+      "aml",
+      "kyc",
+      "compliance",
+      "regulatory compliance",
+      "risk management",
+      "financial analysis"
+    ],
+    "min_experience": 3.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Equity Research Analyst",
+    "description": "Produce in-depth equity research reports, earnings models, and investment recommendations for institutional clients. You will build and maintain detailed financial models, participate in earnings calls, and monitor sector trends. CFA qualification and experience with Bloomberg Terminal and FactSet required. Sector specialization in Technology or Healthcare preferred.",
+    "required_skills": [
+      "equity research",
+      "financial modeling",
+      "valuation",
+      "bloomberg",
+      "investment analysis",
+      "excel",
+      "cfa",
+      "financial reporting"
+    ],
+    "min_experience": 2.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Clinical Data Analyst",
+    "description": "Join our clinical research team to analyze clinical trial datasets, generate statistical outputs, and contribute to regulatory submissions. You will work with clinical data management systems (REDCap, Medidata Rave), apply biostatistical methods, and collaborate with clinical operations. Proficiency in SAS or R, understanding of ICH/GCP guidelines, and familiarity with FDA/EMA regulatory requirements is required.",
+    "required_skills": [
+      "clinical research",
+      "clinical trials",
+      "biostatistics",
+      "r",
+      "clinical data management",
+      "redcap",
+      "gcp",
+      "fda regulations"
+    ],
+    "min_experience": 2.0,
+    "education_level": "Master"
+  },
+  {
+    "title": "Healthcare IT Specialist",
+    "description": "Implement, configure, and support healthcare information systems including EMR/EHR platforms (Epic, Cerner). You will lead HL7/FHIR integration projects, ensure HIPAA compliance, support clinical workflow optimization, and conduct end-user training. Strong technical skills combined with clinical domain knowledge are essential.",
+    "required_skills": [
+      "emr",
+      "ehr",
+      "epic",
+      "hl7",
+      "fhir",
+      "hipaa",
+      "healthcare interoperability",
+      "sql"
+    ],
+    "min_experience": 3.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Pharmacovigilance Specialist",
+    "description": "Monitor drug safety signals, process adverse event reports, and prepare submissions to regulatory authorities (FDA MedWatch, EMA EudraVigilance). You will conduct literature searches, signal detection, and periodic safety update reports (PSURs). Strong knowledge of ICH E2 guidelines, GVP modules, and MedDRA coding required.",
+    "required_skills": [
+      "pharmacovigilance",
+      "drug safety",
+      "adverse event reporting",
+      "fda regulations",
+      "gcp",
+      "medical writing",
+      "regulatory submissions"
+    ],
+    "min_experience": 2.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Healthcare Data Scientist",
+    "description": "Develop predictive models and real-world evidence studies using large healthcare datasets (claims, EHR, registries). Apply machine learning, survival analysis, and NLP to improve patient outcomes and operational efficiency. Experience with Python/R, healthcare data standards (HL7, FHIR, ICD-10), and regulatory/ethical considerations in healthcare AI required.",
+    "required_skills": [
+      "machine learning",
+      "python",
+      "r",
+      "healthcare analytics",
+      "hl7",
+      "fhir",
+      "icd-10",
+      "nlp",
+      "biostatistics",
+      "real-world evidence"
+    ],
+    "min_experience": 3.0,
+    "education_level": "Master"
+  },
+  {
+    "title": "Hospital Operations Manager",
+    "description": "Oversee day-to-day hospital operations, coordinate clinical and non-clinical departments, and drive process improvement initiatives. You will manage budgets, staffing plans, patient flow, and accreditation requirements. Lean / Six Sigma experience and familiarity with hospital information systems is required.",
+    "required_skills": [
+      "hospital administration",
+      "healthcare operations",
+      "project management",
+      "lean manufacturing",
+      "six sigma",
+      "budgeting",
+      "stakeholder management"
+    ],
+    "min_experience": 5.0,
+    "education_level": "Master"
+  },
+  {
+    "title": "Digital Marketing Manager",
+    "description": "Lead the digital marketing strategy across paid search, paid social, SEO, email, and display channels. You will manage campaign performance using Google Analytics 4, optimize ROI across Google Ads and Meta Ads, oversee marketing automation (HubSpot/Marketo), and collaborate with content and creative teams. Strong analytical skills and data-driven mindset required.",
+    "required_skills": [
+      "digital marketing",
+      "seo",
+      "sem",
+      "google ads",
+      "meta ads",
+      "google analytics",
+      "ga4",
+      "hubspot",
+      "email marketing",
+      "a/b testing"
+    ],
+    "min_experience": 4.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "SEO & Content Marketing Specialist",
+    "description": "Develop and execute organic growth strategies through technical SEO audits, keyword research, link-building campaigns, and high-quality content production. You will use tools like Ahrefs, SEMrush, and Google Search Console to track rankings and traffic. Proven track record of growing organic traffic by 50%+ required.",
+    "required_skills": [
+      "seo",
+      "content marketing",
+      "copywriting",
+      "ahrefs",
+      "semrush",
+      "google analytics",
+      "content strategy",
+      "a/b testing"
+    ],
+    "min_experience": 2.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Performance Marketing Analyst",
+    "description": "Manage and optimize paid media campaigns across Google Ads, Meta, LinkedIn, and programmatic channels. You will analyze campaign data, conduct A/B tests, build attribution models, and report on ROAS and CPA metrics. Proficiency in SQL for custom reporting and experience with data visualization tools (Tableau, Looker) is a plus.",
+    "required_skills": [
+      "performance marketing",
+      "ppc",
+      "google ads",
+      "meta ads",
+      "a/b testing",
+      "google analytics",
+      "sql",
+      "tableau",
+      "conversion rate optimization"
+    ],
+    "min_experience": 2.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Brand & Social Media Manager",
+    "description": "Define and maintain brand identity across all touchpoints. You will manage organic and paid social media presence on Instagram, LinkedIn, TikTok, and YouTube; create content calendars; engage communities; and measure brand health metrics. Experience with Canva, Adobe Creative Suite, and social analytics tools required.",
+    "required_skills": [
+      "brand management",
+      "social media marketing",
+      "content marketing",
+      "canva",
+      "adobe creative suite",
+      "community management",
+      "copywriting",
+      "influencer marketing"
+    ],
+    "min_experience": 3.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "CRM & Marketing Automation Specialist",
+    "description": "Build, automate, and optimize multi-touch customer journeys using HubSpot and Salesforce Marketing Cloud. You will segment audiences, design email nurture programs, manage lead scoring, and analyze lifecycle metrics. Proficiency in HTML/CSS for email templates and SQL for audience segmentation preferred.",
+    "required_skills": [
+      "crm",
+      "hubspot",
+      "email marketing",
+      "marketing automation",
+      "salesforce",
+      "customer lifecycle",
+      "sql",
+      "a/b testing"
+    ],
+    "min_experience": 2.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Corporate Legal Counsel",
+    "description": "Provide legal advice across commercial contracts, corporate governance, M&A transactions, and regulatory compliance. You will draft and negotiate a wide range of agreements, advise the board on corporate matters, and manage external counsel. Strong background in corporate law, contract drafting, and commercial negotiation required.",
+    "required_skills": [
+      "corporate law",
+      "contract drafting",
+      "contract negotiation",
+      "merger & acquisition",
+      "legal research",
+      "legal writing",
+      "compliance",
+      "due diligence"
+    ],
+    "min_experience": 5.0,
+    "education_level": "Master"
+  },
+  {
+    "title": "Data Privacy & GDPR Specialist",
+    "description": "Develop and maintain the company's data protection framework in compliance with GDPR, CCPA, and other applicable privacy laws. You will conduct DPIAs, maintain records of processing activities, handle data subject requests, and work with IT teams on privacy-by-design implementation.",
+    "required_skills": [
+      "data privacy",
+      "gdpr",
+      "ccpa",
+      "regulatory compliance",
+      "legal research",
+      "legal writing",
+      "compliance"
+    ],
+    "min_experience": 3.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "IP & Technology Lawyer",
+    "description": "Manage the company's intellectual property portfolio including patents, trademarks, and copyrights. You will advise on IP strategy, conduct freedom-to-operate analyses, manage licensing agreements, and support technology transactions. Experience with patent prosecution and IP litigation preferred.",
+    "required_skills": [
+      "intellectual property",
+      "patent law",
+      "trademark",
+      "copyright",
+      "contract drafting",
+      "legal research",
+      "licensing"
+    ],
+    "min_experience": 4.0,
+    "education_level": "Master"
+  },
+  {
+    "title": "Senior Mechanical Design Engineer",
+    "description": "Lead the mechanical design of industrial equipment and product assemblies using SolidWorks and CATIA. You will perform FEA simulations (ANSYS), GD&T tolerancing, design for manufacturability reviews, and collaborate with manufacturing teams. Experience in automotive or aerospace sectors and familiarity with IATF 16949 / AS9100 standards required.",
+    "required_skills": [
+      "solidworks",
+      "catia",
+      "finite element analysis",
+      "ansys",
+      "mechanical design",
+      "autocad",
+      "lean manufacturing",
+      "fmea",
+      "quality management"
+    ],
+    "min_experience": 5.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Civil & Structural Engineer",
+    "description": "Design and analyze structural systems for commercial and infrastructure projects. You will prepare structural calculations, drawings in AutoCAD/Revit, and BIM models. Experience with ETABS, SAP2000, or STAAD.Pro for structural analysis, and knowledge of Eurocode / ACI standards required. Experience with construction management and site supervision is a plus.",
+    "required_skills": [
+      "civil engineering",
+      "structural analysis",
+      "autocad",
+      "revit",
+      "bim",
+      "construction management",
+      "project scheduling"
+    ],
+    "min_experience": 3.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Electrical & Instrumentation Engineer",
+    "description": "Design electrical systems, instrument loops, and control architecture for oil & gas and process industries. Responsibilities include P&ID development, cause-and-effect diagrams, PLC/DCS programming, and SCADA configuration. Knowledge of IEC 61511 functional safety standard and experience with Siemens S7 / Allen Bradley PLCs required.",
+    "required_skills": [
+      "electrical engineering",
+      "plc programming",
+      "scada",
+      "instrumentation",
+      "control systems",
+      "autocad",
+      "quality management"
+    ],
+    "min_experience": 4.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Manufacturing & Process Improvement Engineer",
+    "description": "Drive Lean/Six Sigma initiatives to eliminate waste, reduce cycle times, and improve product quality across manufacturing lines. You will lead kaizen events, conduct time-motion studies, implement 5S programs, and use statistical process control (SPC) methods. Black Belt or Green Belt certification preferred.",
+    "required_skills": [
+      "lean manufacturing",
+      "six sigma",
+      "quality management",
+      "fmea",
+      "root cause analysis",
+      "process improvement",
+      "statistical analysis"
+    ],
+    "min_experience": 3.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "HR Business Partner",
+    "description": "Act as a strategic advisor to business leaders, delivering talent solutions aligned with business objectives. You will manage performance cycles, drive organizational design, lead change management initiatives, resolve employee relations issues, and partner on workforce planning. Deep knowledge of employment law, coaching skills, and experience with Workday or SAP SuccessFactors required.",
+    "required_skills": [
+      "talent acquisition",
+      "performance management",
+      "employee relations",
+      "change management",
+      "hr analytics",
+      "workday",
+      "employment law",
+      "organizational development"
+    ],
+    "min_experience": 5.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Talent Acquisition Manager",
+    "description": "Lead full-cycle recruitment for senior and specialist roles across business functions. You will design sourcing strategies, manage Employer Value Proposition (EVP), use LinkedIn Recruiter and ATS platforms, develop hiring manager capability, and report on recruiting metrics (time-to-fill, cost-per-hire, quality-of-hire). Experience in high-volume and executive search preferred.",
+    "required_skills": [
+      "talent acquisition",
+      "recruitment",
+      "linkedin recruiter",
+      "sourcing",
+      "hris",
+      "hr analytics",
+      "onboarding",
+      "stakeholder management"
+    ],
+    "min_experience": 4.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Learning & Development Specialist",
+    "description": "Design, develop, and facilitate learning programs aligned to business needs. You will apply instructional design methodologies (ADDIE, SAM), build e-learning content in Articulate Storyline and Rise, manage LMS platforms (Moodle, Cornerstone), and evaluate program effectiveness using Kirkpatrick model.",
+    "required_skills": [
+      "learning & development",
+      "instructional design",
+      "e-learning",
+      "articulate storyline",
+      "lms",
+      "moodle",
+      "training delivery",
+      "content creation",
+      "facilitation"
+    ],
+    "min_experience": 3.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Compensation & Benefits Analyst",
+    "description": "Conduct market pay benchmarking, maintain job architecture and grading systems, design incentive compensation plans, and administer benefits programs. You will use Mercer or Willis Towers Watson compensation surveys, build Excel models for total rewards analysis, and partner with HR Business Partners on C&B strategy.",
+    "required_skills": [
+      "compensation & benefits",
+      "hr analytics",
+      "excel",
+      "financial modeling",
+      "benchmarking",
+      "workday",
+      "hris"
+    ],
+    "min_experience": 3.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Supply Chain Analyst",
+    "description": "Analyze supply chain data to identify cost reduction, inventory optimization, and service improvement opportunities. You will build demand forecasts, run S&OP processes, manage KPI dashboards, and support ERP data management (SAP SCM / Oracle). Strong analytical skills and proficiency in SQL and Excel required; Python or R for advanced analytics is a plus.",
+    "required_skills": [
+      "supply chain management",
+      "demand planning",
+      "s&op",
+      "inventory management",
+      "sap scm",
+      "sql",
+      "excel",
+      "data analysis"
+    ],
+    "min_experience": 2.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Procurement & Sourcing Manager",
+    "description": "Lead strategic sourcing initiatives, manage supplier relationships, and negotiate contracts to deliver cost savings and supply security. You will conduct RFQ/RFP processes, supplier evaluation, and category management. Deep expertise in procurement methodology, contract law fundamentals, and SAP MM required.",
+    "required_skills": [
+      "procurement",
+      "strategic sourcing",
+      "vendor management",
+      "category management",
+      "contract negotiation",
+      "sap",
+      "rfq",
+      "supply chain management"
+    ],
+    "min_experience": 5.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Logistics & Distribution Manager",
+    "description": "Manage end-to-end logistics operations including inbound, warehousing, order fulfillment, and last-mile delivery. You will oversee 3PL partnerships, manage transportation costs, ensure customs compliance (Incoterms), and implement warehouse management system (WMS) improvements.",
+    "required_skills": [
+      "logistics",
+      "warehousing",
+      "inventory management",
+      "3pl",
+      "import/export",
+      "customs",
+      "supply chain management",
+      "vendor management"
+    ],
+    "min_experience": 4.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Enterprise Sales Manager",
+    "description": "Drive new business revenue by leading a team of account executives targeting enterprise accounts. You will define territory strategies, coach sales reps, manage a complex B2B pipeline in Salesforce, and engage C-suite stakeholders. Experience in SaaS or technology sales with consistent track record of exceeding quota required.",
+    "required_skills": [
+      "b2b sales",
+      "enterprise sales",
+      "sales management",
+      "salesforce",
+      "pipeline management",
+      "negotiation",
+      "sales forecasting",
+      "crm"
+    ],
+    "min_experience": 6.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Business Development Manager",
+    "description": "Identify, qualify, and close strategic partnership and new revenue opportunities. You will develop go-to-market plans, conduct market research, build business cases, and manage stakeholder relationships. Cross-functional collaboration with product, marketing, and legal teams is essential.",
+    "required_skills": [
+      "business development",
+      "b2b sales",
+      "market research",
+      "negotiation",
+      "crm",
+      "strategic planning",
+      "stakeholder management",
+      "salesforce"
+    ],
+    "min_experience": 4.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Customer Success Manager",
+    "description": "Own the post-sales relationship for a portfolio of enterprise accounts, ensuring adoption, satisfaction, retention, and growth. You will conduct QBRs, build success plans, identify upsell opportunities, and act as the voice of the customer internally. Experience with SaaS platforms, Gainsight or ChurnZero, and Salesforce CRM required.",
+    "required_skills": [
+      "customer success",
+      "account management",
+      "salesforce",
+      "crm",
+      "upselling",
+      "stakeholder management",
+      "client relationship management"
+    ],
+    "min_experience": 3.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Instructional Designer & E-Learning Developer",
+    "description": "Design and develop engaging digital learning experiences for corporate audiences. You will apply the ADDIE and SAM models, create SCORM-compliant e-learning modules in Articulate Storyline and Rise, manage content in LMS platforms (Moodle, Cornerstone), and collaborate with SMEs to ensure accuracy and relevance.",
+    "required_skills": [
+      "instructional design",
+      "e-learning",
+      "articulate storyline",
+      "scorm",
+      "lms",
+      "moodle",
+      "curriculum development",
+      "adult learning theory",
+      "content creation"
+    ],
+    "min_experience": 2.0,
+    "education_level": "Bachelor"
+  },
+  {
+    "title": "Corporate Training & Development Manager",
+    "description": "Lead the company's learning strategy, manage the training team, and partner with HR and business leaders on capability building. You will design leadership development programs, manage vendor relationships (external trainers, platforms), oversee the LMS, and measure training ROI using Kirkpatrick model. Coaching certification is a plus.",
+    "required_skills": [
+      "training delivery",
+      "learning & development",
+      "instructional design",
+      "lms",
+      "facilitation",
+      "coaching",
+      "stakeholder management",
+      "hr analytics"
+    ],
+    "min_experience": 6.0,
+    "education_level": "Master"
+  }
 ]

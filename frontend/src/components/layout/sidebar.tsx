@@ -11,7 +11,7 @@ import {
   UsersRound,
   X,
 } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 import { cn } from "../../lib/utils";
 import { Button } from "../ui/button";
@@ -43,83 +43,53 @@ function SidebarBody({
   onItemClick?: () => void;
 }) {
   return (
-    <div className="flex h-full flex-col gap-6 rounded-none border-r border-[var(--sidebar-border)] bg-[var(--sidebar)] px-4 py-5 backdrop-blur-2xl lg:rounded-r-[30px]">
-      <div className="flex items-center justify-between gap-3">
-        <div className={cn("flex items-center gap-3", collapsed && "justify-center")}>
-          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[22px] bg-[linear-gradient(135deg,var(--primary),var(--chart-2))] text-white shadow-[0_16px_40px_rgba(37,99,235,0.32)]">
-            <Sparkles className="h-5 w-5" />
+    <div className="flex h-full flex-col gap-4 rounded-none border-r border-[var(--sidebar-border)] bg-[var(--sidebar)] px-3 py-4 backdrop-blur-2xl lg:rounded-r-[30px]">
+      <div className="flex items-center justify-between gap-2 px-1">
+        <Link to="/" className={cn("flex items-center gap-2.5 rounded-xl transition-opacity hover:opacity-80", collapsed && "justify-center")}>
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[16px] bg-[linear-gradient(135deg,var(--primary),var(--chart-2))] text-white shadow-[0_8px_24px_rgba(37,99,235,0.28)]">
+            <Sparkles className="h-4 w-4" />
           </div>
           {!collapsed ? (
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-primary/80">SmartCV</p>
-              <h1 className="text-lg font-semibold tracking-tight text-[var(--sidebar-foreground)]">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-primary/80">SmartCV</p>
+              <h1 className="text-sm font-semibold tracking-tight text-[var(--sidebar-foreground)] leading-tight">
                 Recruitment OS
               </h1>
-              <p className="text-xs text-muted-foreground">AI candidate matching platform</p>
             </div>
           ) : null}
-        </div>
+        </Link>
         <Button
           variant="ghost"
           size="icon"
-          className="hidden lg:inline-flex"
+          className="hidden lg:inline-flex h-7 w-7"
           onClick={onToggleCollapse}
           aria-label="Toggle sidebar"
         >
-          <ChevronLeft className={cn("h-4 w-4 transition-transform", collapsed && "rotate-180")} />
+          <ChevronLeft className={cn("h-3.5 w-3.5 transition-transform", collapsed && "rotate-180")} />
         </Button>
       </div>
 
-      <div className={cn("hero-panel ring-grid rounded-[28px] px-4 py-4", collapsed && "px-3 py-3")}>
-        <p className={cn("text-[11px] font-semibold uppercase tracking-[0.24em] text-primary/80", collapsed && "text-center")}>
-          AI Engine
-        </p>
-        {!collapsed ? (
-          <>
-            <h2 className="mt-2 text-sm font-semibold text-foreground">Explainable matching pipeline</h2>
-            <p className="mt-1 text-xs leading-5 text-muted-foreground">
-              TF-IDF + weighted scoring across skills, experience, education, and semantic fit.
-            </p>
-          </>
-        ) : null}
-      </div>
-
-      <nav className="flex-1 space-y-1">
+      <nav className="flex-1 space-y-0.5">
         {navItems.map(({ to, label, icon: Icon }) => (
           <NavLink key={to} to={to} onClick={onItemClick}>
             {({ isActive }) => (
               <motion.div
-                whileHover={{ x: collapsed ? 0 : 4 }}
+                whileHover={{ x: collapsed ? 0 : 3 }}
                 className={cn(
-                  "group flex items-center gap-3 rounded-2xl px-3 py-3 text-sm font-medium transition-colors",
+                  "group flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
                   isActive
-                    ? "bg-primary text-primary-foreground shadow-[0_18px_50px_rgba(37,99,235,0.22)]"
+                    ? "bg-primary text-primary-foreground shadow-[0_8px_24px_rgba(37,99,235,0.18)]"
                     : "text-muted-foreground hover:bg-accent hover:text-foreground",
                   collapsed && "justify-center px-2",
                 )}
               >
-                <Icon className="h-4.5 w-4.5 shrink-0" />
+                <Icon className="h-4 w-4 shrink-0" />
                 {!collapsed ? <span>{label}</span> : null}
               </motion.div>
             )}
           </NavLink>
         ))}
       </nav>
-
-      <div className={cn("glass-panel rounded-[24px] p-4", collapsed && "px-2 py-3")}>
-        {!collapsed ? (
-          <>
-            <p className="text-xs font-semibold text-foreground">Demo Ready</p>
-            <p className="mt-1 text-xs leading-5 text-muted-foreground">
-              Live presentation mode with CV upload, ranking, and AI insights.
-            </p>
-          </>
-        ) : (
-          <div className="flex justify-center text-primary">
-            <Sparkles className="h-4 w-4" />
-          </div>
-        )}
-      </div>
     </div>
   );
 }
