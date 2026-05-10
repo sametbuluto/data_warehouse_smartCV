@@ -1,8 +1,8 @@
-import { Bell, Menu, Search, Sparkles } from "lucide-react";
+import { Bell, Menu, Sparkles } from "lucide-react";
 
 
 import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+import { GlobalSearch } from "./global-search";
 import { ThemeToggle } from "./theme-toggle";
 
 interface TopbarProps {
@@ -27,10 +27,7 @@ export function Topbar({ title, onOpenMobileNav }: TopbarProps) {
           </div>
 
           <div className="hidden flex-[0_1_320px] items-center lg:flex">
-            <div className="relative w-full">
-              <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
-              <Input className="pl-9 h-9 text-sm" placeholder="Search candidates, jobs, skills..." />
-            </div>
+            <GlobalSearch />
           </div>
 
           <div className="flex items-center gap-1.5">

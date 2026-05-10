@@ -160,6 +160,13 @@ select {
   grid-template-columns: 240px minmax(0, 1fr);
 }
 
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
 .app-shell-grid[data-collapsed="true"] {
   grid-template-columns: 72px minmax(0, 1fr);
 }

@@ -1,6 +1,7 @@
 import axios from "axios";
 
 import type {
+  AnalyticsInsights,
   Candidate,
   CandidateListItem,
   DashboardStats,
@@ -80,6 +81,11 @@ export const getCandidateMatches = async (candidateId: number) => {
 
 export const getDashboard = async () => {
   const response = await api.get<DashboardStats>("/analytics/dashboard");
+  return response.data;
+};
+
+export const getAnalyticsInsights = async () => {
+  const response = await api.get<AnalyticsInsights>("/analytics/insights");
   return response.data;
 };
 

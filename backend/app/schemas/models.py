@@ -96,3 +96,10 @@ class DashboardStats(BaseModel):
     top_skills: list[dict]
     best_candidates: list[dict]
     score_distribution: list[dict]
+
+
+class AnalyticsInsights(BaseModel):
+    skill_supply_demand: list[dict]
+    category_quality: list[dict]
+    experience_score: list[dict]
+    top_jobs_by_champion: list[dict]
