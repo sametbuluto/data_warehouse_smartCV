@@ -1,4 +1,5 @@
 import { useDeferredValue, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { FileSearch, Radar, Search, Trash2, UsersRound } from "lucide-react";
 
 import {
@@ -28,8 +29,16 @@ export default function CandidatesPage() {
   const [candidateMatches, setCandidateMatches] = useState<MatchResult[]>([]);
   const [loading, setLoading] = useState(true);
   const [profileLoading, setProfileLoading] = useState(false);
-  const [search, setSearch] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [search, setSearch] = useState(searchParams.get("q") ?? "");
   const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    const next = new URLSearchParams(searchParams);
+    if (search) next.set("q", search);
+    else next.delete("q");
+    setSearchParams(next, { replace: true });
+  }, [search]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const refreshCandidates = async () => {
     const data = await getCandidates();

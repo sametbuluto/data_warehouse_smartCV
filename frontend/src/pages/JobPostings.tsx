@@ -1,6 +1,6 @@
 import { useDeferredValue, useEffect, useMemo, useState } from "react";
 import { BriefcaseBusiness, Plus, Radar, Search, Trash2, WandSparkles, X } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import { createJob, deleteJob, getJobs, runMatching } from "../api/client";
 import { Badge } from "../components/ui/badge";
@@ -41,8 +41,16 @@ export default function JobPostingsPage() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [form, setForm] = useState<JobCreatePayload>(initialForm);
   const [skillInput, setSkillInput] = useState("");
-  const [search, setSearch] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [search, setSearch] = useState(searchParams.get("q") ?? "");
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    const next = new URLSearchParams(searchParams);
+    if (search) next.set("q", search);
+    else next.delete("q");
+    setSearchParams(next, { replace: true });
+  }, [search]); // eslint-disable-line react-hooks/exhaustive-deps
   const [matchingJobId, setMatchingJobId] = useState<number | null>(null);
 
   useEffect(() => {

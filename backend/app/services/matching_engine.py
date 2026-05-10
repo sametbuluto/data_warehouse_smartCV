@@ -7,21 +7,21 @@ from app.services.nlp_processor import preprocess_text, EDUCATION_LEVELS
 
 logger = logging.getLogger(__name__)
 
-# Scoring weights
-WEIGHT_SKILL = 0.40
-WEIGHT_EXPERIENCE = 0.30
-WEIGHT_EDUCATION = 0.20
-WEIGHT_SEMANTIC = 0.10
+# Scoring weights — skill and semantic dominate so scores spread wider
+WEIGHT_SKILL = 0.50
+WEIGHT_EXPERIENCE = 0.20
+WEIGHT_EDUCATION = 0.10
+WEIGHT_SEMANTIC = 0.20
 
 
 def calculate_skill_score(candidate_skills: list[str], required_skills: list[str]) -> tuple[float, list[str], list[str]]:
-    """Calculate skill match score.
+    """Calculate skill match score with non-linear penalty for missing skills.
 
-    Returns:
-        Tuple of (score 0-100, matched_skills, missing_skills)
+    Uses power curve so missing even 1-2 skills meaningfully drops the score,
+    creating wider separation between candidates.
     """
     if not required_skills:
-        return 100.0, candidate_skills, []
+        return 100.0, list(candidate_skills), []
 
     candidate_set = {s.lower() for s in candidate_skills}
     required_set = {s.lower() for s in required_skills}
@@ -29,26 +29,47 @@ def calculate_skill_score(candidate_skills: list[str], required_skills: list[str
     matched = candidate_set & required_set
     missing = required_set - candidate_set
 
-    score = (len(matched) / len(required_set)) * 100 if required_set else 0
+    n = len(required_set)
+    n_matched = len(matched)
+
+    # Power curve: 9/9=100, 8/9=87, 7/9=75, 6/9=63, 5/9=51, 4/9=40, 3/9=29...
+    score = (n_matched / n) ** 1.25 * 100
     return round(score, 2), sorted(matched), sorted(missing)
 
 
 def calculate_experience_score(candidate_years: float, required_years: float) -> float:
-    """Calculate experience match score (0-100).
+    """Experience score with a sweet-spot curve.
 
-    Score is capped at 100% (meeting or exceeding requirement).
+    - Far under-qualified: steep penalty
+    - Slightly under: proportional penalty
+    - Meets requirement: 85-95
+    - Ideal fit (1-2x required): 100
+    - Heavily overqualified (3x+): modest penalty (likely poor fit)
     """
     if required_years <= 0:
         return 100.0
-    score = min(candidate_years / required_years, 1.0) * 100
-    return round(score, 2)
+
+    ratio = candidate_years / required_years
+
+    if ratio >= 3.0:
+        # Very overqualified — likely won't stay
+        return 72.0
+    elif ratio >= 2.0:
+        # Overqualified
+        return 88.0
+    elif ratio >= 1.0:
+        # Meets or slightly exceeds — linear from 85 to 100
+        return round(85.0 + (ratio - 1.0) / 1.0 * 15.0, 2)
+    elif ratio >= 0.5:
+        # Somewhat under — proportional
+        return round(ratio * 85.0, 2)
+    else:
+        # Significantly under-qualified
+        return round(ratio * 60.0, 2)
 
 
 def calculate_education_score(candidate_education: str, required_education: str) -> float:
-    """Calculate education match score (0-100).
-
-    Uses hierarchical scoring: PhD=100, Master=80, Bachelor=60, etc.
-    """
+    """Education score — meeting or exceeding gives full marks; gap is penalized proportionally."""
     candidate_level = EDUCATION_LEVELS.get(candidate_education.lower(), 40)
     required_level = EDUCATION_LEVELS.get(required_education.lower(), 60)
 
@@ -58,14 +79,7 @@ def calculate_education_score(candidate_education: str, required_education: str)
 
 
 def calculate_semantic_similarity(cv_text: str, job_text: str) -> float:
-    """Calculate semantic similarity using TF-IDF + Cosine Similarity.
-
-    This is the core ML component of the pipeline:
-    1. Preprocess both texts
-    2. Create TF-IDF vectors
-    3. Compute cosine similarity
-    """
-    # Preprocess
+    """Calculate semantic similarity using TF-IDF + Cosine Similarity."""
     cv_processed = preprocess_text(cv_text)
     job_processed = preprocess_text(job_text)
 
@@ -95,9 +109,7 @@ def calculate_final_score(
     """Calculate the weighted final matching score.
 
     Formula:
-        Final = 40% Skill + 30% Experience + 20% Education + 10% Semantic
-
-    Returns dict with all individual scores, matched/missing skills, and final score.
+        Final = 50% Skill + 20% Experience + 10% Education + 20% Semantic
     """
     skill_score, matched, missing = calculate_skill_score(candidate_skills, required_skills)
     exp_score = calculate_experience_score(candidate_experience, required_experience)
@@ -147,7 +159,6 @@ def generate_explanation(result: dict, candidate_name: str, job_title: str) -> s
         lines.append(", ".join(result["missing_skills"]))
         lines.append("")
 
-    # Overall assessment
     score = result["final_score"]
     if score >= 80:
         lines.append("#### 🟢 Assessment: **Excellent Match** — Highly recommended for this position.")

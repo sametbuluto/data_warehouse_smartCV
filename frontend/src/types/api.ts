@@ -64,6 +64,19 @@ export interface DashboardStats {
   score_distribution: { range: string; count: number }[];
 }
 
+export interface AnalyticsInsights {
+  skill_supply_demand: { skill: string; demand: number; supply: number }[];
+  category_quality: { category: string; job_count: number; avg_top_score: number }[];
+  experience_score: { band: string; avg_score: number; candidates: number }[];
+  top_jobs_by_champion: {
+    job_id: number;
+    job_title: string;
+    champion_name: string;
+    top_score: number;
+    category: string;
+  }[];
+}
+
 export interface JobCreatePayload {
   title: string;
   description: string;

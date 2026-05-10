@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDropzone } from "react-dropzone";
 import { AnimatePresence, motion } from "framer-motion";
-import { BrainCircuit, CheckCircle2, FileText, Loader2, UploadCloud } from "lucide-react";
+import { BrainCircuit, CheckCircle2, ExternalLink, FileText, Loader2, UploadCloud } from "lucide-react";
 
 import { getCandidateMatches, getJobs, runCandidateMatching, uploadCV } from "../api/client";
 import { ScoreRing } from "../components/matching/score-ring";
@@ -80,9 +80,6 @@ export default function UploadPage() {
           setMatches(candidateMatches);
         }
         setProgress(100);
-        // Redirect to matching page after a short success pause
-        await sleep(1500);
-        navigate(`/matching?candidate=${uploadedCandidate.id}`);
       } catch (requestError) {
         const fallbackMessage = "Upload failed. Please check the PDF and try again.";
         if (requestError instanceof Error) {
@@ -103,6 +100,10 @@ export default function UploadPage() {
     maxFiles: 1,
     disabled: uploading,
   });
+
+  const handleViewMatching = () => {
+    if (candidate) navigate(`/matching?candidate=${candidate.id}`);
+  };
 
   const extractionChecks = candidate
     ? [
@@ -282,6 +283,14 @@ export default function UploadPage() {
                     ))}
                   </div>
                 </div>
+
+                {/* CTA — stay on page, open matching in same tab */}
+                {matches.length > 0 && (
+                  <Button className="w-full" onClick={handleViewMatching}>
+                    <ExternalLink className="h-4 w-4" />
+                    View Full Match Rankings
+                  </Button>
+                )}
               </motion.div>
             ) : (
               <EmptyState

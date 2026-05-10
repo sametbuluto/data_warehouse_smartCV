@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import { BrainCircuit, Eye, Radar, SearchCheck, UsersRound } from "lucide-react";
+import { BrainCircuit, Eye, Radar, Search, SearchCheck, UsersRound } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
+
+import { Input } from "../components/ui/input";
 
 import { explainMatch, getJobs, getMatchResults, runMatching } from "../api/client";
 import { MatchExplanationDialog } from "../components/matching/match-explanation-dialog";
@@ -11,10 +13,33 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../co
 import { EmptyState } from "../components/ui/empty-state";
 import { Progress } from "../components/ui/progress";
 import { SectionHeading } from "../components/ui/section-heading";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs";
 import { scoreBadgeTone } from "../lib/utils";
 import type { Job, MatchExplanation, MatchResult } from "../types/api";
+
+const CATEGORIES = [
+  "All",
+  "Sales & BD",
+  "HR & Training",
+  "Supply Chain",
+  "Engineering",
+  "Legal",
+  "Finance",
+  "Other",
+] as const;
+
+type Category = (typeof CATEGORIES)[number];
+
+function inferCategory(title: string): Category {
+  if (/sales|business development|customer success/i.test(title)) return "Sales & BD";
+  if (/\bhr\b|human resources|talent|training|learning|compensation|benefit|instructional/i.test(title))
+    return "HR & Training";
+  if (/supply chain|procurement|sourcing|logistics|distribution/i.test(title)) return "Supply Chain";
+  if (/engineer|engineering|mechanical|electrical|manufacturing/i.test(title)) return "Engineering";
+  if (/lawyer|legal|\bip\b|attorney/i.test(title)) return "Legal";
+  if (/financ|accounti|analyst/i.test(title)) return "Finance";
+  return "Other";
+}
 
 export default function MatchingPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -23,6 +48,8 @@ export default function MatchingPage() {
 
   const [jobs, setJobs] = useState<Job[]>([]);
   const [selectedJobId, setSelectedJobId] = useState<string>(jobQuery ?? "");
+  const [selectedCategory, setSelectedCategory] = useState<Category>("All");
+  const [jobSearch, setJobSearch] = useState("");
   const [results, setResults] = useState<MatchResult[]>([]);
   const [selectedMatchId, setSelectedMatchId] = useState<number | null>(null);
   const [explanation, setExplanation] = useState<MatchExplanation | null>(null);
@@ -42,8 +69,7 @@ export default function MatchingPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  useEffect(() =>
-  {
+  useEffect(() => {
     if (!selectedJobId) {
       setResults([]);
       setExplanation(null);
@@ -54,11 +80,8 @@ export default function MatchingPage() {
       .then((data) => {
         setResults(data);
 
-        // If we arrived from the upload page, auto-select that candidate
         if (candidateQuery) {
-          const match = data.find(
-            (r) => String(r.candidate_id) === candidateQuery,
-          );
+          const match = data.find((r) => String(r.candidate_id) === candidateQuery);
           if (match) {
             setSelectedMatchId(match.id);
             setActiveTab("insights");
@@ -91,18 +114,45 @@ export default function MatchingPage() {
     [jobs, selectedJobId],
   );
 
+  const categorizedJobs = useMemo(() => {
+    const byCategory = selectedCategory === "All" ? jobs : jobs.filter((j) => inferCategory(j.title) === selectedCategory);
+    const q = jobSearch.trim().toLowerCase();
+    if (!q) return byCategory;
+    return byCategory.filter(
+      (j) =>
+        j.title.toLowerCase().includes(q) ||
+        j.required_skills.some((s) => s.toLowerCase().includes(q)),
+    );
+  }, [jobs, selectedCategory, jobSearch]);
+
+  const availableCategories = useMemo(() => {
+    const used = new Set(jobs.map((j) => inferCategory(j.title)));
+    return CATEGORIES.filter((c) => c === "All" || used.has(c));
+  }, [jobs]);
+
   const handleRunMatching = async () => {
     if (!selectedJobId) return;
     setRunning(true);
     try {
       await runMatching(Number(selectedJobId));
+    } catch {
+      setRunning(false);
+      return;
+    }
+    try {
       const refreshed = await getMatchResults(Number(selectedJobId));
       setResults(refreshed);
       setSelectedMatchId(refreshed[0]?.id ?? null);
-      setActiveTab("rankings");
-    } finally {
-      setRunning(false);
+    } catch {
+      // results couldn't be fetched
     }
+    setActiveTab("rankings");
+    setRunning(false);
+  };
+
+  const handleSelectJob = (jobId: string) => {
+    setSelectedJobId(jobId);
+    setSearchParams(jobId ? { job: jobId } : {});
   };
 
   const handleSelectCandidate = (matchId: number) => {
@@ -115,32 +165,12 @@ export default function MatchingPage() {
       <SectionHeading
         eyebrow="Ranking Engine"
         title="Inspect ranked candidates and explainable AI fit signals for each role."
-        description="This page is built for demos: stable layout, clear score hierarchy, skill-gap visibility, and a dedicated AI insights panel."
+        description="Browse job postings by category, select a role, and view AI-ranked candidates with explainable scores."
         action={
-          <div className="flex flex-wrap gap-3">
-            <Select
-              value={selectedJobId}
-              onValueChange={(value) => {
-                setSelectedJobId(value);
-                setSearchParams(value ? { job: value } : {});
-              }}
-            >
-              <SelectTrigger className="min-w-[260px]">
-                <SelectValue placeholder="Select a job" />
-              </SelectTrigger>
-              <SelectContent>
-                {jobs.map((job) => (
-                  <SelectItem key={job.id} value={String(job.id)}>
-                    {job.title}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            <Button onClick={handleRunMatching} disabled={!selectedJobId || running}>
-              <Radar className="h-4 w-4" />
-              {running ? "Recomputing..." : "Run Matching"}
-            </Button>
-          </div>
+          <Button onClick={handleRunMatching} disabled={!selectedJobId || running}>
+            <Radar className="h-4 w-4" />
+            {running ? "Recomputing..." : "Run Matching"}
+          </Button>
         }
       />
 
@@ -152,7 +182,79 @@ export default function MatchingPage() {
         />
       ) : (
         <>
-          {/* ── Narrow screens (below xl): tab layout ── */}
+          {/* ── Category + Job selector ── */}
+          <div className="space-y-3">
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <p className="text-sm text-muted-foreground">
+                {categorizedJobs.length} job{categorizedJobs.length === 1 ? "" : "s"} in {selectedCategory}
+                {jobSearch ? ` matching "${jobSearch}"` : ""}
+              </p>
+              <div className="relative w-full lg:max-w-sm">
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  className="pl-9"
+                  value={jobSearch}
+                  onChange={(event) => setJobSearch(event.target.value)}
+                  placeholder="Search jobs by title or required skill..."
+                />
+              </div>
+            </div>
+            {/* Category scroll bar */}
+            <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+              {availableCategories.map((cat) => (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => setSelectedCategory(cat)}
+                  className={[
+                    "shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition",
+                    selectedCategory === cat
+                      ? "bg-primary text-primary-foreground shadow-sm"
+                      : "border border-border bg-secondary/60 text-muted-foreground hover:bg-accent hover:text-foreground",
+                  ].join(" ")}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            {/* Job cards horizontal scroll */}
+            <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-none">
+              {categorizedJobs.map((job) => {
+                const isActive = String(job.id) === selectedJobId;
+                return (
+                  <button
+                    key={job.id}
+                    type="button"
+                    onClick={() => handleSelectJob(String(job.id))}
+                    className={[
+                      "shrink-0 rounded-2xl border p-4 text-left transition w-[220px]",
+                      isActive
+                        ? "border-primary/40 bg-primary/8 shadow-[0_8px_24px_rgba(37,99,235,0.12)]"
+                        : "border-border bg-secondary/55 hover:bg-accent",
+                    ].join(" ")}
+                  >
+                    <p className="text-[11px] font-medium uppercase tracking-widest text-muted-foreground mb-1">
+                      {inferCategory(job.title)}
+                    </p>
+                    <p className="text-sm font-semibold text-foreground leading-snug line-clamp-2">{job.title}</p>
+                    <div className="mt-2 flex gap-1.5 flex-wrap">
+                      <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[11px] text-primary font-medium">
+                        {job.min_experience}+ yrs
+                      </span>
+                      <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[11px] text-primary font-medium">
+                        {job.required_skills.length} skills
+                      </span>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* ── Rankings + Insights ── */}
+
+          {/* Narrow screens: tab layout */}
           <div className="xl:hidden">
             <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as typeof activeTab)}>
               <TabsList className="mb-4">
@@ -168,9 +270,7 @@ export default function MatchingPage() {
                 <TabsTrigger value="insights" className="flex items-center gap-2">
                   <BrainCircuit className="h-4 w-4" />
                   AI Insights
-                  {explanation ? (
-                    <span className="h-2 w-2 rounded-full bg-success" />
-                  ) : null}
+                  {explanation ? <span className="h-2 w-2 rounded-full bg-success" /> : null}
                 </TabsTrigger>
               </TabsList>
 
@@ -189,7 +289,7 @@ export default function MatchingPage() {
             </Tabs>
           </div>
 
-          {/* ── Wide screens (xl+): two-column layout ── */}
+          {/* Wide screens: two-column layout */}
           <div className="hidden gap-6 xl:grid xl:grid-cols-[1.05fr_0.95fr]">
             <RankingCard
               selectedJob={selectedJob}
