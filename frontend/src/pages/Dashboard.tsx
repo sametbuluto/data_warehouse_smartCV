@@ -18,7 +18,7 @@ import { getCandidates, getDashboard, getJobs } from "../api/client";
 import { KpiCard } from "../components/dashboard/kpi-card";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { EmptyState } from "../components/ui/empty-state";
 import { SectionHeading } from "../components/ui/section-heading";
 import { Skeleton } from "../components/ui/skeleton";

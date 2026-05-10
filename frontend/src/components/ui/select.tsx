@@ -4,7 +4,20 @@ import { Check, ChevronDown } from "lucide-react";
 import { cn } from "../../lib/utils";
 
 export const Select = SelectPrimitive.Root;
+export const SelectGroup = SelectPrimitive.Group;
 export const SelectValue = SelectPrimitive.Value;
+
+export function SelectLabel({
+  className,
+  ...props
+}: SelectPrimitive.SelectLabelProps) {
+  return (
+    <SelectPrimitive.Label
+      className={cn("py-1.5 pl-9 pr-2 text-sm font-semibold text-muted-foreground", className)}
+      {...props}
+    />
+  );
+}
 
 export function SelectTrigger({
   className,
@@ -38,13 +51,13 @@ export function SelectContent({
       <SelectPrimitive.Content
         position={position}
         className={cn(
-          "z-50 overflow-hidden rounded-3xl border border-border bg-popover p-2 text-popover-foreground shadow-[var(--shadow-md)] backdrop-blur-xl",
+          "z-50 max-h-96 overflow-hidden rounded-3xl border border-border bg-popover p-2 text-popover-foreground shadow-[var(--shadow-md)] backdrop-blur-xl",
           position === "popper" && "translate-y-1",
           className,
         )}
         {...props}
       >
-        <SelectPrimitive.Viewport className="p-1">{children}</SelectPrimitive.Viewport>
+        <SelectPrimitive.Viewport className="p-1 max-h-80 overflow-y-auto">{children}</SelectPrimitive.Viewport>
       </SelectPrimitive.Content>
     </SelectPrimitive.Portal>
   );
